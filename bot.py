@@ -7,7 +7,7 @@ from discord.ext.commands import Bot
 # load_dotenv()
 TOKEN = os.getenv("DISCORD_BOT_TOKEN")
 
-bot = Bot(command_prefix='*') # or whatever prefix you choose(!,%,?)
+bot = Bot(command_prefix='*')
 
 def no_everyone_here(text):
     return text.replace('@everyone', '[REDACTED]').replace('@here', '[REDACTED]')
@@ -88,23 +88,4 @@ async def doge(ctx, *args):
         text2 = args[1].replace(' ', '_')
         await ctx.send(f'https://api.memegen.link/images/doge/{text1}/{text2}.png')
 
-
-# @bot.command()
-# async def listmembers(ctx, *, role: discord.Role):
-#     # if len(args)==0:
-#     #     await ctx.send('You\'re supposed to supply a role!')
-#     print(role.name)
-#     print(type(role))
-#     print(role.members)
-#     # await ctx.send(f'Here are the members of {role.name}:')
-#     # for user in role.members[0]:
-#     #     await ctx.send(user.name)
-
-# @bot.command()
-# async def roles(ctx):
-#     for i in ctx.guild.roles[:10]:
-#         await ctx.send(i.name)
-
-# insert the line below at the end of the file
-# define <TOKEN> as your discord bot token
 bot.run(TOKEN)
