@@ -87,5 +87,10 @@ async def doge(ctx, *args):
         text1 = args[0].replace(' ', '_')
         text2 = args[1].replace(' ', '_')
         await ctx.send(f'https://api.memegen.link/images/doge/{text1}/{text2}.png')
+        
+@bot.command()
+async def sinoang(ctx, *, role: discord.Role):
+  for i in role.members[0]:
+    await ctx.send(f'{i.name}')
 
 bot.run(TOKEN)
