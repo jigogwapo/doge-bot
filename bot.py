@@ -8,6 +8,9 @@ TOKEN = os.getenv("DISCORD_BOT_TOKEN")
 
 bot = Bot(command_prefix='*') # or whatever prefix you choose(!,%,?)
 
+def no_everyone_here(text):
+    return text.replace('@everyone', '[REDACTED]').replace('@here', '[REDACTED]')
+
 @bot.event
 async def on_ready():
 	print(f'Bot connected as {bot.user}')
@@ -17,44 +20,64 @@ async def pogi(ctx, *args):
     if len(args)==0:
         await ctx.send('Pogi talaga ni jigs!')
     else:
-        await ctx.send(f'Pogi talaga ni {args[0]}!')
+        text = no_everyone_here(args[0])
+        await ctx.send(f'Pogi talaga ni {text}!')
 
 @bot.command()
 async def ganda(ctx, *args):
     if len(args)==0:
         await ctx.send('Ganda ka girl?')
     else:
-        await ctx.send(f'Ganda naman ni {args[0]}!')
+        text = no_everyone_here(args[0])
+        await ctx.send(f'Ganda naman ni {text}!')
 
 @bot.command()
 async def ligo(ctx, *args):
     if len(args) == 0:
         await ctx.send('Maligo ka na uy!')
     else:
-        await ctx.send(f'Maligo ka na nga {args[0]}!')
+        text = no_everyone_here(args[0])
+        await ctx.send(f'Maligo ka na nga {text}!')
 
 @bot.command()
 async def kiss(ctx, *args):
     if len(args) == 0:
         await ctx.send('Pakiss nga!')
     else:
-        await ctx.send(f'Pakiss nga {args[0]}!')
+        text = no_everyone_here(args[0])
+        await ctx.send(f'Pakiss nga {text}!')
 
 @bot.command()
 async def chararat(ctx, *args):
     if len(args) == 0:
         await ctx.send('ang chararat mo!')
     else:
-        await ctx.send(f'ang chararat mo {args[0]}!')
+        text = no_everyone_here(args[0])
+        await ctx.send(f'ang chararat mo {text}!')
 
 @bot.command()
 async def fastpp(ctx):
     await ctx.send('https://streamable.com/pctmah')
 
 @bot.command()
-async def doge(ctx, *args):
+async def bonk(ctx, *args):
     wordsurl='_'.join(args)
-    await ctx.send(f'https://api.memegen.link/images/doge/{wordsurl}.png')
+    await ctx.send(f'https://api.memegen.link/images/custom/{wordsurl}.png?background=https://i.imgur.com/02w1SGO.jpg')
+
+@bot.command()
+async def doge(ctx, *args):
+    if len(args) == 0:
+        await ctx.send('https://api.memegen.link/images/doge.png')
+    elif len(args) >= 3:
+        await ctx.send('too many phrases')
+    elif len(args) == 1:
+        text = args[0].replace(' ', '_')
+        await ctx.send(f'https://api.memegen.link/images/doge/{text}.png')
+    else:
+        text1 = args[0].replace(' ', '_')
+        text2 = args[1].replace(' ', '_')
+        await ctx.send(f'https://api.memegen.link/images/doge/{text1}/{text2}.png')
+
 
 # @bot.command()
 # async def listmembers(ctx, *, role: discord.Role):
