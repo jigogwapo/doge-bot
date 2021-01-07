@@ -90,7 +90,6 @@ async def doge(ctx, *args):
         
 @bot.command()
 async def sinoang(ctx, *, role: discord.Role):
-  for i in role.members[0]:
-    await ctx.send(f'{i.name}')
+  await ctx.send(f'{role.members[0].name}')
 
 bot.run(TOKEN)
