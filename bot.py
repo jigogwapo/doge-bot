@@ -1,4 +1,5 @@
 import os, discord
+from jeje_function import jejenizer
 # from dotenv import load_dotenv
 from discord.ext.commands import Bot
 # from discord.utils import get
@@ -63,6 +64,15 @@ async def fastpp(ctx):
 async def bonk(ctx, *args):
     wordsurl='_'.join(args)
     await ctx.send(f'https://api.memegen.link/images/custom/{wordsurl}.png?background=https://i.imgur.com/02w1SGO.jpg')
+
+@bot.command(brief='ex. *jeje Hello guys!')
+async def jeje(ctx, *args):
+    if len(args) == 0:
+        await ctx.send('waALha Kha Nh/-\mM@nN6 T!NyYPeE')
+    else:
+        input_text = ' '.join(args)
+        jeje_text = jejenizer(input_text)
+        await ctx.send(jeje_text)
 
 @bot.command(brief='ex. *doge "top text" "bottom text"')
 async def doge(ctx, *args):
