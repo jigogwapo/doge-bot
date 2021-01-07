@@ -1,9 +1,9 @@
 import os, discord
-from dotenv import load_dotenv
+# from dotenv import load_dotenv
 from discord.ext.commands import Bot
 # from discord.utils import get
 
-load_dotenv()
+# load_dotenv()
 TOKEN = os.getenv("DISCORD_BOT_TOKEN")
 
 bot = Bot(command_prefix='*') # or whatever prefix you choose(!,%,?)
