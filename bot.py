@@ -15,7 +15,7 @@ def no_everyone_here(text):
 async def on_ready():
 	print(f'Bot connected as {bot.user}')
 
-@bot.command()
+@bot.command(brief='for saying you\'re pogi')
 async def pogi(ctx, *args):
     if len(args)==0:
         await ctx.send('Pogi talaga ni jigs!')
@@ -23,7 +23,7 @@ async def pogi(ctx, *args):
         text = no_everyone_here(args[0])
         await ctx.send(f'Pogi talaga ni {text}!')
 
-@bot.command()
+@bot.command(brief='for saying you\'re ganda')
 async def ganda(ctx, *args):
     if len(args)==0:
         await ctx.send('Ganda ka girl?')
@@ -31,7 +31,7 @@ async def ganda(ctx, *args):
         text = no_everyone_here(args[0])
         await ctx.send(f'Ganda naman ni {text}!')
 
-@bot.command()
+@bot.command(brief='para sa mga @DI-NALILIGO')
 async def ligo(ctx, *args):
     if len(args) == 0:
         await ctx.send('Maligo ka na uy!')
@@ -39,7 +39,7 @@ async def ligo(ctx, *args):
         text = no_everyone_here(args[0])
         await ctx.send(f'Maligo ka na nga {text}!')
 
-@bot.command()
+@bot.command(brief=':kiss:')
 async def kiss(ctx, *args):
     if len(args) == 0:
         await ctx.send('Pakiss nga!')
@@ -47,7 +47,7 @@ async def kiss(ctx, *args):
         text = no_everyone_here(args[0])
         await ctx.send(f'Pakiss nga {text}!')
 
-@bot.command()
+@bot.command(brief='for saying you\'re chararat')
 async def chararat(ctx, *args):
     if len(args) == 0:
         await ctx.send('ang chararat mo!')
@@ -55,16 +55,16 @@ async def chararat(ctx, *args):
         text = no_everyone_here(args[0])
         await ctx.send(f'ang chararat mo {text}!')
 
-@bot.command()
+@bot.command(brief='you can ignore this')
 async def fastpp(ctx):
     await ctx.send('https://streamable.com/pctmah')
 
-@bot.command()
+@bot.command(brief='ex. *bonk umayos ka')
 async def bonk(ctx, *args):
     wordsurl='_'.join(args)
     await ctx.send(f'https://api.memegen.link/images/custom/{wordsurl}.png?background=https://i.imgur.com/02w1SGO.jpg')
 
-@bot.command()
+@bot.command(brief='ex. *doge "top text" "bottom text"')
 async def doge(ctx, *args):
     if len(args) == 0:
         await ctx.send('https://api.memegen.link/images/doge.png')
