@@ -6,16 +6,11 @@ from discord.ext.commands import Bot
 load_dotenv()
 TOKEN = os.getenv("DISCORD_BOT_TOKEN")
 
-bot = Bot(command_prefix='$') # or whatever prefix you choose(!,%,?)
+bot = Bot(command_prefix='*') # or whatever prefix you choose(!,%,?)
 
 @bot.event
 async def on_ready():
 	print(f'Bot connected as {bot.user}')
-
-# @bot.event
-# async def on_message(message):
-# 	if message.content == 'test':
-# 		await message.channel.send('Testing 1 2 3!')
 
 @bot.command()
 async def pogi(ctx, *args):
@@ -23,6 +18,13 @@ async def pogi(ctx, *args):
         await ctx.send('Pogi talaga ni jigs!')
     else:
         await ctx.send(f'Pogi talaga ni {args[0]}!')
+
+@bot.command()
+async def ganda(ctx, *args):
+    if len(args)==0:
+        await ctx.send('Ganda ka girl?')
+    else:
+        await ctx.send(f'Ganda naman ni {args[0]}!')
 
 @bot.command()
 async def ligo(ctx, *args):
@@ -46,20 +48,29 @@ async def chararat(ctx, *args):
         await ctx.send(f'ang chararat mo {args[0]}!')
 
 @bot.command()
-async def listmembers(ctx, *, role: discord.Role):
-    # if len(args)==0:
-    #     await ctx.send('You\'re supposed to supply a role!')
-    print(role.name)
-    print(type(role))
-    print(role.members)
-    # await ctx.send(f'Here are the members of {role.name}:')
-    # for user in role.members[0]:
-    #     await ctx.send(user.name)
+async def fastpp(ctx):
+    await ctx.send('https://streamable.com/pctmah')
 
 @bot.command()
-async def roles(ctx):
-    for i in ctx.guild.roles[:10]:
-        await ctx.send(i.name)
+async def doge(ctx, *args):
+    wordsurl='_'.join(args)
+    await ctx.send(f'https://api.memegen.link/images/doge/{wordsurl}.png')
+
+# @bot.command()
+# async def listmembers(ctx, *, role: discord.Role):
+#     # if len(args)==0:
+#     #     await ctx.send('You\'re supposed to supply a role!')
+#     print(role.name)
+#     print(type(role))
+#     print(role.members)
+#     # await ctx.send(f'Here are the members of {role.name}:')
+#     # for user in role.members[0]:
+#     #     await ctx.send(user.name)
+
+# @bot.command()
+# async def roles(ctx):
+#     for i in ctx.guild.roles[:10]:
+#         await ctx.send(i.name)
 
 # insert the line below at the end of the file
 # define <TOKEN> as your discord bot token
