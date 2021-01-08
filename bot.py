@@ -101,4 +101,9 @@ async def sinoang(ctx, *, role: discord.Role):
         content += f'{i.name}\n'
     await ctx.send(f'```{content}```')
 
+@sinoang.error
+async def sinoang_error(ctx, error):
+    if isinstance(error, commands.BadArgument):
+        await ctx.send('WALA')
+
 bot.run(TOKEN)
