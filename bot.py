@@ -95,11 +95,13 @@ async def doge(ctx, *args):
 
 @bot.command()
 async def sinoang(ctx, *, role: discord.Role):
-    guild = ctx.guild
-    print(f'guild name: {guild.name}')
-    print(f'guild member count: {len(guild.members)}')
-    print(f'guild\'s first member: {guild.members[0].name}')
-    print(f'guild\'s last member: {guild.members[-1].name}')
+    # guild = ctx.message.guild
+    # print(f'guild name: {guild.name}')
+    # print(f'guild member count: {len(guild.members)}')
+    # print(f'guild\'s first member: {guild.members[0].name}')
+    # print(f'guild\'s last member: {guild.members[-1].name}')
+    print(f'role member 1: {role.members[0]}')
+    print(f'role member count: {len(role.members)}')
     # guild_role = guild.get_role(role.id)
     # print(guild_role.members)
     # await ctx.send(f'{role.members[0].name}')
