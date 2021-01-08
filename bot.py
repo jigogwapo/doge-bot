@@ -62,7 +62,10 @@ async def fastpp(ctx):
 
 @bot.command(brief='ex. *bonk umayos ka')
 async def bonk(ctx, *args):
-    wordsurl='/'+'_'.join(args)
+    if len(args) == 0:
+        wordsurl = ''
+    else:
+        wordsurl='/'+'_'.join(args)
     await ctx.send(f'https://api.memegen.link/images/custom{wordsurl}.png?background=https://i.imgur.com/02w1SGO.jpg')
 
 @bot.command(brief='ex. *jeje Hello guys!')
