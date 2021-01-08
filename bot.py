@@ -95,7 +95,7 @@ async def doge(ctx, *args):
 
 @bot.command()
 async def sinoang(ctx, *, role: discord.Role):
-    n = min(len(role.members), 10)
+    n = min(len(role.members), 20)
     content = ''
     for i in role.members[:n]:
         content += f'{i.name}\n'
