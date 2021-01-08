@@ -8,6 +8,7 @@ from discord.ext.commands import Bot
 TOKEN = os.getenv("DISCORD_BOT_TOKEN")
 
 bot = Bot(command_prefix='*')
+client = discord.Client()
 
 def no_everyone_here(text):
     return text.replace('@everyone', '[REDACTED]').replace('@here', '[REDACTED]')
@@ -94,8 +95,9 @@ async def doge(ctx, *args):
 @bot.command()
 async def sinoang(ctx, *, role: discord.Role):
     guild = ctx.guild
-    guild_role = guild.get_role(role.id)
-    print(guild_role.members)
+    print(guild.members[0].name)
+    # guild_role = guild.get_role(role.id)
+    # print(guild_role.members)
     # await ctx.send(f'{role.members[0].name}')
 
 bot.run(TOKEN)
