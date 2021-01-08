@@ -1,13 +1,14 @@
 import os, discord
 from jeje_function import jejenizer
-# from dotenv import load_dotenv
 from discord.ext.commands import Bot
-# from discord.utils import get
+intents = discord.Intents(messages=True, members=True)
 
+# from discord.utils import get
+# from dotenv import load_dotenv
 # load_dotenv()
 TOKEN = os.getenv("DISCORD_BOT_TOKEN")
 
-bot = Bot(command_prefix='*')
+bot = Bot(command_prefix='*', intents=intents)
 client = discord.Client()
 
 def no_everyone_here(text):
