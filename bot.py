@@ -62,8 +62,8 @@ async def fastpp(ctx):
 
 @bot.command(brief='ex. *bonk umayos ka')
 async def bonk(ctx, *args):
-    wordsurl='_'.join(args)
-    await ctx.send(f'https://api.memegen.link/images/custom/{wordsurl}.png?background=https://i.imgur.com/02w1SGO.jpg')
+    wordsurl='/'+'_'.join(args)
+    await ctx.send(f'https://api.memegen.link/images/custom{wordsurl}.png?background=https://i.imgur.com/02w1SGO.jpg')
 
 @bot.command(brief='ex. *jeje Hello guys!')
 async def jeje(ctx, *args):
@@ -87,7 +87,7 @@ async def doge(ctx, *args):
         text1 = args[0].replace(' ', '_')
         text2 = args[1].replace(' ', '_')
         await ctx.send(f'https://api.memegen.link/images/doge/{text1}/{text2}.png')
-        
+
 @bot.command()
 async def sinoang(ctx, *, role: discord.Role):
   await ctx.send(f'{role.members[0].name}')
