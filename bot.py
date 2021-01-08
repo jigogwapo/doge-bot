@@ -93,7 +93,7 @@ async def doge(ctx, *args):
         text2 = args[1].replace(' ', '_')
         await ctx.send(f'https://api.memegen.link/images/doge/{text1}/{text2}.png')
 
-@bot.command()
+@bot.command(brief='displays first 20 (for now) members of a role')
 async def sinoang(ctx, *, role: discord.Role):
     n = min(len(role.members), 20)
     content = ''
