@@ -1,7 +1,7 @@
 import os, discord
 from jeje_function import jejenizer
 from discord.ext.commands import Bot
-intents = discord.Intents(messages=True, members=True)
+intents = discord.Intents.all()
 
 # from discord.utils import get
 # from dotenv import load_dotenv
