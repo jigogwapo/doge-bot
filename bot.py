@@ -103,7 +103,6 @@ async def sinoang(ctx, *, role: discord.Role):
 
 @sinoang.error
 async def sinoang_error(ctx, error):
-    if isinstance(error, commands.BadArgument):
-        await ctx.send('WALA')
+    await ctx.send('WALA')
 
 bot.run(TOKEN)
