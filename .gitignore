@@ -1,3 +1,4 @@
 .env
 .vscode/
 jeje_test.py
+__pycache__
