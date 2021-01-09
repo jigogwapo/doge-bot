@@ -10,7 +10,7 @@ client = discord.Client()
 
 starden_server_id = 758361018233126932
 starden_anonchannel_id = 780701253280727040
-starden_anonchannel = bot.get_channel(starden_anonchannel_id)
+
 
 def no_everyone_here(text):
     return text.replace('@everyone', '[REDACTED]').replace('@here', '[REDACTED]')
@@ -21,12 +21,11 @@ async def on_ready():
 
 @bot.event
 async def on_message(message):
-    if message.channel.id == message.author.dm_channel.id: # for solo dms
+    if not message.guild: # for solo dms
         if message.content.startswith('*anon'):
             anon_message = message.content[6:]
+            starden_anonchannel = bot.get_channel(starden_anonchannel_id)
             await starden_anonchannel.send(f'{anon_message}')
-    elif not message.guild: # for group dms
-        pass
 
 @bot.command(brief='for saying you\'re pogi')
 async def pogi(ctx, *args):
