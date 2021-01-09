@@ -8,6 +8,8 @@ TOKEN = os.getenv("DISCORD_BOT_TOKEN")
 bot = commands.Bot(command_prefix='*', intents=intents)
 client = discord.Client()
 
+starden_id = 758361018233126932
+
 def no_everyone_here(text):
     return text.replace('@everyone', '[REDACTED]').replace('@here', '[REDACTED]')
 
@@ -165,8 +167,12 @@ async def sinoang_error(ctx, error):
     if isinstance(error, commands.BadArgument):
         await ctx.send('WALA')
 
+# @bot.command(hidden=True)
+# async def getserverid(ctx):
+#     await ctx.send(f'{ctx.guild.id}')
+
 @bot.command(hidden=True)
-async def getserverid(ctx):
-    await ctx.send(f'{ctx.guild.id}')
+async def getchannelid(ctx):
+    await ctx.send(f'{ctx.channel.id}')
 
 bot.run(TOKEN)
