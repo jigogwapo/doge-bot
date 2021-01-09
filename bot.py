@@ -107,7 +107,7 @@ async def sinoang(ctx, *, role: discord.Role):
     cur_page = 1                     # current page number
 
     def page_content(page_num):
-        content = f'Eto yung mga {role.name}:\n'
+        content = f'Eto yung mga {role.name}:\n\n'
         if page_num == 1:
             page_end = min(mem_len, pg_len)
         else:
@@ -115,7 +115,7 @@ async def sinoang(ctx, *, role: discord.Role):
 
         for i in role.members[(page_num-1)*pg_len:page_end]:
             content += f'{i.name}\n'
-        content += f'Page {page_num} of {pages}'
+        content += f'\nPage {page_num} of {pages}'
         return f'```{content}```'
 
     message = await ctx.send(page_content(cur_page))
