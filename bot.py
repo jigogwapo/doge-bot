@@ -15,6 +15,13 @@ def no_everyone_here(text):
 async def on_ready():
 	print(f'Bot connected as {bot.user}')
 
+# @bot.event
+# async def on_message(message):
+#     if message.channel.id == message.author.dm_channel.id: # for solo dms
+#         if message.content.startswith('*anon'):
+
+#     elif not message.guild: # for group dms
+
 @bot.command(brief='for saying you\'re pogi')
 async def pogi(ctx, *args):
     if len(args)==0:
@@ -78,7 +85,7 @@ async def bang(ctx, *args):
 @bot.command(brief='ex. *jeje Hello guys!')
 async def jeje(ctx, *args):
     if len(args) == 0:
-        await ctx.send(jejenizer('Wala ka namang tinype!'))
+        await ctx.send('waALha Kha Nh/-\mM@nN6 T!NyYPeE')
     else:
         input_text = ' '.join(args)
         jeje_text = jejenizer(input_text)
@@ -107,7 +114,7 @@ async def sinoang(ctx, *, role: discord.Role):
     cur_page = 1                     # current page number
 
     def page_content(page_num):
-        content = f'Eto yung mga {role.name} ({mem_len} total):\n\n'
+        content = f'Eto yung mga {role.name}:\n'
         if page_num == 1:
             page_end = min(mem_len, pg_len)
         else:
@@ -115,7 +122,7 @@ async def sinoang(ctx, *, role: discord.Role):
 
         for i in role.members[(page_num-1)*pg_len:page_end]:
             content += f'{i.name}\n'
-        content += f'\nPage {page_num} of {pages}'
+        content += f'Page {page_num} of {pages}'
         return f'```{content}```'
 
     message = await ctx.send(page_content(cur_page))
@@ -157,5 +164,9 @@ async def sinoang(ctx, *, role: discord.Role):
 async def sinoang_error(ctx, error):
     if isinstance(error, commands.BadArgument):
         await ctx.send('WALA')
+
+@bot.command(hidden=True)
+async def getserverid(ctx):
+    await ctx.send(f'{ctx.guild.id}')
 
 bot.run(TOKEN)
