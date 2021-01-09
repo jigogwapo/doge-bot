@@ -1,4 +1,5 @@
 .env
 .vscode/
-jeje_test.py
 __pycache__/
+jeje_test.py
+run_local.py

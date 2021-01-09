@@ -1,14 +1,11 @@
-import os, discord
+import os, discord, asyncio
 from jeje_function import jejenizer
-from discord.ext.commands import Bot
+import discord.ext.commands as commands
 intents = discord.Intents.all()
 
-# from discord.utils import get
-# from dotenv import load_dotenv
-# load_dotenv()
 TOKEN = os.getenv("DISCORD_BOT_TOKEN")
 
-bot = Bot(command_prefix='*', intents=intents)
+bot = commands.Bot(command_prefix='*', intents=intents)
 client = discord.Client()
 
 def no_everyone_here(text):
@@ -103,14 +100,62 @@ async def doge(ctx, *args):
 
 @bot.command(brief='displays first 20 (for now) members of a role')
 async def sinoang(ctx, *, role: discord.Role):
-    n = min(len(role.members), 20)
-    content = ''
-    for i in role.members[:n]:
-        content += f'{i.name}\n'
-    await ctx.send(f'```{content}```')
+    pg_len = 20                     # items per page
+    mem_len = len(role.members)     # total number of members
+    # pg1_len = min(mem_len, pg_len)
+    pages = mem_len // pg_len + 1    # total number of pages
+    cur_page = 1                     # current page number
+
+    def page_content(page_num):
+        content = f'Eto yung mga {role.name}:\n'
+        if page_num == 1:
+            page_end = min(mem_len, pg_len)
+        else:
+            page_end = page_num*pg_len
+
+        for i in role.members[(page_num-1)*pg_len:page_end]:
+            content += f'{i.name}\n'
+        content += f'Page {page_num} of {pages}'
+        return f'```{content}```'
+
+    message = await ctx.send(page_content(cur_page))
+
+    await message.add_reaction('◀')
+    await message.add_reaction('❌')
+    await message.add_reaction('▶')
+
+    def check_react(reaction, user):
+        return user == ctx.author and str(reaction.emoji) in ['◀', '❌', '▶']
+
+    while True:
+        try:
+            reaction, user = await bot.wait_for('reaction_add', timeout=60, check=check_react)
+
+            if str(reaction.emoji) == '◀' and cur_page > 1:
+                cur_page -= 1
+                await message.edit(content=page_content(cur_page))
+                await message.remove_reaction(reaction, user)
+
+            elif str(reaction.emoji) == '▶' and cur_page != pages:
+                cur_page += 1
+                await message.edit(content=page_content(cur_page))
+                await message.remove_reaction(reaction, user)
+
+            elif str(reaction.emoji) == '❌':
+                await message.delete()
+
+            else:
+                await message.remove_reaction(reaction, user)
+
+        except asyncio.TimeoutError:
+            await message.delete()
+            break
+
+
 
 @sinoang.error
 async def sinoang_error(ctx, error):
-    await ctx.send('WALA')
+    if isinstance(error, commands.BadArgument):
+        await ctx.send('WALA')
 
 bot.run(TOKEN)
