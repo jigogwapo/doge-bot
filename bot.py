@@ -107,7 +107,7 @@ async def sinoang(ctx, *, role: discord.Role):
     cur_page = 1                     # current page number
 
     def page_content(page_num):
-        content = f'Eto yung mga {role.name}:\n\n'
+        content = f'Eto yung mga {role.name} ({mem_len} total):\n\n'
         if page_num == 1:
             page_end = min(mem_len, pg_len)
         else:
