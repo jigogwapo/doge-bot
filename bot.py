@@ -25,7 +25,7 @@ async def on_message(message):
         if message.content.startswith('*anon'):
             anon_message = message.content[6:]
             starden_anonchannel = bot.get_channel(starden_anonchannel_id)
-            await starden_anonchannel.send(f'{anon_message}')
+            await starden_anonchannel.send(f'**anon**: {anon_message}')
 
 @bot.command(brief='for saying you\'re pogi')
 async def pogi(ctx, *args):
