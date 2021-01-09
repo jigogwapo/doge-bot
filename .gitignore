@@ -1,5 +1,6 @@
 .env
 .vscode/
 __pycache__/
+.codesandbox/
 jeje_test.py
 run_local.py
