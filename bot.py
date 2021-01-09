@@ -78,7 +78,7 @@ async def bang(ctx, *args):
 @bot.command(brief='ex. *jeje Hello guys!')
 async def jeje(ctx, *args):
     if len(args) == 0:
-        await ctx.send('waALha Kha Nh/-\mM@nN6 T!NyYPeE')
+        await ctx.send(jejenizer('Wala ka namang tinype!'))
     else:
         input_text = ' '.join(args)
         jeje_text = jejenizer(input_text)
