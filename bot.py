@@ -8,7 +8,9 @@ TOKEN = os.getenv("DISCORD_BOT_TOKEN")
 bot = commands.Bot(command_prefix='*', intents=intents)
 client = discord.Client()
 
-starden_id = 758361018233126932
+starden_server_id = 758361018233126932
+starden_anonchannel_id = 780701253280727040
+starden_anonchannel = bot.get_channel(starden_anonchannel_id)
 
 def no_everyone_here(text):
     return text.replace('@everyone', '[REDACTED]').replace('@here', '[REDACTED]')
@@ -17,12 +19,14 @@ def no_everyone_here(text):
 async def on_ready():
 	print(f'Bot connected as {bot.user}')
 
-# @bot.event
-# async def on_message(message):
-#     if message.channel.id == message.author.dm_channel.id: # for solo dms
-#         if message.content.startswith('*anon'):
-
-#     elif not message.guild: # for group dms
+@bot.event
+async def on_message(message):
+    if message.channel.id == message.author.dm_channel.id: # for solo dms
+        if message.content.startswith('*anon'):
+            anon_message = message.content[6:]
+            await starden_anonchannel.send(f'{anon_message}')
+    elif not message.guild: # for group dms
+        pass
 
 @bot.command(brief='for saying you\'re pogi')
 async def pogi(ctx, *args):
@@ -171,8 +175,8 @@ async def sinoang_error(ctx, error):
 # async def getserverid(ctx):
 #     await ctx.send(f'{ctx.guild.id}')
 
-@bot.command(hidden=True)
-async def getchannelid(ctx):
-    await ctx.send(f'{ctx.channel.id}')
+# @bot.command(hidden=True)
+# async def getchannelid(ctx):
+#     await ctx.send(f'{ctx.channel.id}')
 
 bot.run(TOKEN)
