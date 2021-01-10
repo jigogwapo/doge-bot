@@ -27,6 +27,8 @@ async def on_message(message):
             starden_anonchannel = bot.get_channel(789854981981077514)
             await starden_anonchannel.send(f'**anon**: {anon_message}')
             await message.channel.send(f'anon message successfully sent. you can now delete your DM.')
+    
+    await bot.process_commands(message)
 
 @bot.command(brief='for saying you\'re pogi')
 async def pogi(ctx, *args):
