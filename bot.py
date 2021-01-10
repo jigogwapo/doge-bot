@@ -24,8 +24,10 @@ async def on_message(message):
     if not message.guild: # for solo dms
         if message.content.startswith('*anon'):
             anon_message = message.content[6:]
+            await message.delete()
             starden_anonchannel = bot.get_channel(789854981981077514)
             await starden_anonchannel.send(f'**anon**: {anon_message}')
+            await message.channel.send(f'anon message sent.')
 
 @bot.command(brief='for saying you\'re pogi')
 async def pogi(ctx, *args):
