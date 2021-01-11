@@ -9,7 +9,8 @@ bot = commands.Bot(command_prefix='*', intents=intents)
 client = discord.Client()
 
 starden_server_id = 758361018233126932
-starden_anonchannel_id = 780701253280727040
+starden_anonchannel_id = 789854981981077514
+starden_testchannel_id = 780701253280727040
 
 
 def no_everyone_here(text):
@@ -21,13 +22,18 @@ async def on_ready():
 
 @bot.event
 async def on_message(message):
+    starden_server = bot.get_guild(starden_server_id)
     if not message.guild: # for solo dms
         if message.content.startswith('*anon'):
+            starden_anonchannel = bot.get_channel(starden_anonchannel_id)
             anon_message = message.content[6:]
-            starden_anonchannel = bot.get_channel(789854981981077514)
             await starden_anonchannel.send(f'**anon**: {anon_message}')
             await message.channel.send(f'anon message successfully sent. you can now delete your DM.')
-    
+        if message.content.startswith('*testanon') and starden_server.get_member(message.author.id) is not None:
+            starden_testchannel = bot.get_channel(starden_testchannel_id)
+            anon_message = message.content[6:]
+            await starden_testchannel.send(f'**anon**: {anon_message}')
+            await message.channel.send(f'test anon message successfully sent. you can now delete your DM.')
     await bot.process_commands(message)
 
 @bot.command(brief='for saying you\'re pogi')
