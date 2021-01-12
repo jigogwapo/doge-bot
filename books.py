@@ -1,3 +1,4 @@
+from bot import book
 import requests, os
 GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
 
@@ -15,6 +16,8 @@ def book_search(book_name):
         book_image = book_data['imageLinks']['thumbnail']
         if 'description' in book_data.keys():
             book_description = book_data['description']
+            if len(book_description) > 1000:
+                book_description = book_description[:1000]
         else:
             book_description = 'Description is missing.'
         book_author = book_data['authors'][0]
