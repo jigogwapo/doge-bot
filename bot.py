@@ -1,5 +1,6 @@
 import os, discord, asyncio
 from jeje_function import jejenizer
+from books import book_search
 import discord.ext.commands as commands
 intents = discord.Intents.all()
 
@@ -30,6 +31,17 @@ async def on_message(message):
             await starden_anonchannel.send(f'**anon**: {anon_message}')
             await message.channel.send(f'anon message successfully sent. you can now delete your DM.')
     await bot.process_commands(message)
+
+@bot.command(brief='search for a book')
+async def book(ctx, *, book_name):
+    book = book_search(book_name)
+    if book is None:
+        await ctx.send('No book found.')
+    else:
+        embed = discord.Embed(title=book['title'], url=book['url'], description=book['description'])
+        embed.set_author(name=book['author'])
+        embed.set_thumbnail(url=book['image'])
+        await ctx.send(embed=embed)
 
 @bot.command(brief='for saying you\'re pogi')
 async def pogi(ctx, *args):
