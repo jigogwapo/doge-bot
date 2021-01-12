@@ -1,4 +1,3 @@
-from bot import book
 import requests, os
 GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
 
