@@ -49,6 +49,8 @@ def author_book_search(author):
             book['description'] = book_data['description']
             if len(book['description']) > 1000:
                 book['description'] = book['description'][:1000]
+        else:
+            book['description'] = 'No description found.'
         author_books.append(book)
 
     return author_books
