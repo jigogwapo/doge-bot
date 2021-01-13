@@ -100,7 +100,7 @@ async def author(ctx, *, author_name):
             embed = discord.Embed(title=f'{i+1}. {book["title"]}', url=book['url'], description=book['description'])
             embed.set_thumbnail(url=book['image'])
             book_embeds_list.append(embed)
-        await ctx.send(f'Here are {author_name}\'s top 5 books:')
+        await ctx.send(f'Here are {author_name}\'s top {len(author_books_list)} books:')
         await paginate(ctx, book_embeds_list, isEmbed=True)
 
 @bot.command(brief='for saying you\'re pogi')
