@@ -35,6 +35,9 @@ def author_book_search(author):
 
     author_books = []
 
+    if 'items' not in search_data.keys():
+        return None
+
     #loop through search_data items and add to a list containing book data
     for i in search_data['items']:
         book = {}
