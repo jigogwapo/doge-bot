@@ -87,7 +87,7 @@ async def book(ctx, *, book_name):
         embed.set_thumbnail(url=book['image'])
         await ctx.send(embed=embed)
 
-@bot.command(brief='search for an author\'s books')
+@bot.command(brief='search for an author\'s top books')
 async def author(ctx, *, author_name):
     author_books_list = author_book_search(author_name)
     if author_books_list is None:

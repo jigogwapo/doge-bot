@@ -31,7 +31,7 @@ def book_search(book_name):
 
 def author_book_search(author):
     author = f'"{author}"'
-    search_data = requests.get(f'{base_uri}{book_search_uri}inauthor:{author}&maxResults=5').json()
+    search_data = requests.get(f'{base_uri}{book_search_uri}inauthor:{author}&maxResults=10').json()
 
     author_books = []
 
