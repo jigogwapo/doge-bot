@@ -148,11 +148,11 @@ async def fastpp(ctx):
     await ctx.send('https://streamable.com/pctmah')
 
 @bot.command(brief='ex. *bonk umayos ka')
-async def bonk(ctx, *args):
-    if len(args) == 0:
+async def bonk(ctx, *, arg):
+    if arg is None:
         wordsurl = ''
     else:
-        wordsurl='/'+'_'.join(args)
+        wordsurl= '/' + arg.replace(' ', '_').replace('-', '--')
     await ctx.send(f'https://api.memegen.link/images/custom{wordsurl}.png?background=https://i.imgur.com/02w1SGO.jpg')
 
 @bot.command(brief='ex. *bang umayos ka')
