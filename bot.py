@@ -59,7 +59,6 @@ async def paginate(ctx, content_list, *, isEmbed=False):
                 await message.remove_reaction(reaction, user)
 
         except asyncio.TimeoutError:
-            await message.delete()
             break
 
 @bot.event
