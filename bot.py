@@ -17,6 +17,51 @@ starden_testchannel_id = 780701253280727040
 def no_everyone_here(text):
     return text.replace('@everyone', '[REDACTED]').replace('@here', '[REDACTED]')
 
+async def paginate(ctx, content_list, *, isEmbed=False):
+    if isEmbed:
+        message = await ctx.send(embed=content_list[0])
+    else:
+        message = await ctx.send(content=content_list[0])
+
+    async def edit_message(message, data):
+        if isEmbed:
+            await message.edit(content=None, embed=data)
+        else:
+            await message.edit(embed=None, content=data)
+
+    list_len = len(content_list)
+    cur_page = 1
+    await message.add_reaction('◀')
+    await message.add_reaction('❌')
+    await message.add_reaction('▶')
+
+    def check_react(reaction, user):
+        return user == ctx.author and str(reaction.emoji) in ['◀', '❌', '▶']
+
+    while True:
+        try:
+            reaction, user = await bot.wait_for('reaction_add', timeout=60, check=check_react)
+
+            if str(reaction.emoji) == '◀' and cur_page > 1:
+                cur_page -= 1
+                await edit_message(message, content_list[cur_page-1])
+                await message.remove_reaction(reaction, user)
+
+            elif str(reaction.emoji) == '▶' and cur_page != list_len:
+                cur_page += 1
+                await edit_message(message, content_list[cur_page-1])
+                await message.remove_reaction(reaction, user)
+
+            elif str(reaction.emoji) == '❌':
+                await message.delete()
+
+            else:
+                await message.remove_reaction(reaction, user)
+
+        except asyncio.TimeoutError:
+            await message.delete()
+            break
+
 @bot.event
 async def on_ready():
 	print(f'Bot connected as {bot.user}')
@@ -43,16 +88,21 @@ async def book(ctx, *, book_name):
         embed.set_thumbnail(url=book['image'])
         await ctx.send(embed=embed)
 
-@bot.command(brief='search for a book')
+@bot.command(brief='search for an author\'s books')
 async def author(ctx, *, author_name):
-    author_books = author_book_search(author_name)
-    if author_books is None:
-        await ctx.send('No book found.')
+    author_books_list = author_book_search(author_name)
+    if author_books_list is None:
+        await ctx.send(f'No book found by {author_name}.')
     else:
-        embed = discord.Embed(title=book['title'], url=book['url'], description=book['description'])
-        embed.set_author(name=book['author'])
-        embed.set_thumbnail(url=book['image'])
-        await ctx.send(embed=embed)
+        # create list of embeds
+        book_embeds_list = []
+        for i in range(len(author_books_list)):
+            book = author_books_list[i]
+            embed = discord.Embed(title=f'{i+1}. {book["title"]}', url=book['url'], description=book['description'])
+            embed.set_thumbnail(url=book['image'])
+            book_embeds_list.append(embed)
+        await ctx.send(f'Here are {author_name}\'s top 5 books:')
+        await paginate(ctx, book_embeds_list, isEmbed=True)
 
 @bot.command(brief='for saying you\'re pogi')
 async def pogi(ctx, *args):
@@ -143,86 +193,25 @@ async def sinoang(ctx, *, role: discord.Role):
     mem_len = len(role.members)     # total number of members
     # pg1_len = min(mem_len, pg_len)
     pages = mem_len // pg_len + 1    # total number of pages
-    cur_page = 1                     # current page number
+    # build page_content_list
+    page_content_list = []
 
-    def page_content(page_num):
-        content = f'Eto yung mga {role.name}:\n'
+    for page_num in range(1, pages+1):
+        page_content = f'Eto yung mga {role.name}:\n'
+
         if page_num == 1:
             page_end = min(mem_len, pg_len)
         else:
             page_end = page_num*pg_len
 
-        for i in role.members[(page_num-1)*pg_len:page_end]:
-            content += f'{i.name}\n'
-        content += f'Page {page_num} of {pages}'
-        return f'```{content}```'
+        for member in role.members[(page_num-1)*pg_len:page_end]:
+            page_content += f'{member.name}\n'
 
-    message = await ctx.send(page_content(cur_page))
+        page_content += f'Page {page_num} of {pages}'
+        page_content_list.append(f'```{page_content}```')
 
-    await message.add_reaction('◀')
-    await message.add_reaction('❌')
-    await message.add_reaction('▶')
-
-    def check_react(reaction, user):
-        return user == ctx.author and str(reaction.emoji) in ['◀', '❌', '▶']
-
-    while True:
-        try:
-            reaction, user = await bot.wait_for('reaction_add', timeout=60, check=check_react)
-
-            if str(reaction.emoji) == '◀' and cur_page > 1:
-                cur_page -= 1
-                await message.edit(content=page_content(cur_page))
-                await message.remove_reaction(reaction, user)
-
-            elif str(reaction.emoji) == '▶' and cur_page != pages:
-                cur_page += 1
-                await message.edit(content=page_content(cur_page))
-                await message.remove_reaction(reaction, user)
-
-            elif str(reaction.emoji) == '❌':
-                await message.delete()
-
-            else:
-                await message.remove_reaction(reaction, user)
-
-        except asyncio.TimeoutError:
-            await message.delete()
-            break
-
-async def paginate(ctx, content_list):
-    message = await ctx.send(content_list[0])
-
-    await message.add_reaction('◀')
-    await message.add_reaction('❌')
-    await message.add_reaction('▶')
-
-    def check_react(reaction, user):
-        return user == ctx.author and str(reaction.emoji) in ['◀', '❌', '▶']
-
-    while True:
-        try:
-            reaction, user = await bot.wait_for('reaction_add', timeout=60, check=check_react)
-
-            if str(reaction.emoji) == '◀' and cur_page > 1:
-                cur_page -= 1
-                await message.edit(content=page_content(cur_page))
-                await message.remove_reaction(reaction, user)
-
-            elif str(reaction.emoji) == '▶' and cur_page != pages:
-                cur_page += 1
-                await message.edit(content=page_content(cur_page))
-                await message.remove_reaction(reaction, user)
-
-            elif str(reaction.emoji) == '❌':
-                await message.delete()
-
-            else:
-                await message.remove_reaction(reaction, user)
-
-        except asyncio.TimeoutError:
-            await message.delete()
-            break
+    # runs paginate helper function to automatically create pages on discord
+    await paginate(ctx, page_content_list)
 
 @sinoang.error
 async def sinoang_error(ctx, error):
