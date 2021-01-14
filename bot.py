@@ -1,4 +1,4 @@
-import os, discord, asyncio
+import os, discord, asyncio, re
 from jeje_function import jejenizer
 from books import book_search, author_book_search
 import discord.ext.commands as commands
@@ -148,8 +148,8 @@ async def fastpp(ctx):
     await ctx.send('https://streamable.com/pctmah')
 
 @bot.command(brief='ex. *bonk umayos ka')
-async def bonk(ctx, *, arg):
-    if arg is None:
+async def bonk(ctx, *, arg = ''):
+    if arg == '':
         wordsurl = ''
     else:
         wordsurl= '/' + arg.replace(' ', '_').replace('-', '--')
