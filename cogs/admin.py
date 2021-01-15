@@ -25,12 +25,7 @@ class Admin(commands.Cog):
                 await message.channel.send(f'anon message successfully sent. you can now delete your DM.')
 
         if message.channel.id == Admin.starden_voicechatchannel_id:
-            if not message.author.bot:
-                await message.reply(f'Message will be deleted in {self.vc_delete_time} seconds.', delete_after=2)
-            await asyncio.sleep(self.vc_delete_time-2)
-            if not message.author.bot:
-                await message.reply(f'Deleting...', delete_after=2)
-            await asyncio.sleep(2)
+            await asyncio.sleep(self.vc_delete_time)
             try:
                 await message.delete()
             except:
@@ -40,10 +35,10 @@ class Admin(commands.Cog):
     @commands.has_any_role('Arbiter', 'Bot Master')
     async def deltime(self, ctx, timeout: int = None):
         if timeout is None:
-            await ctx.send(f'Current auto-delete time is {self.vc_delete_time} seconds.', delete_after=2)
+            await ctx.send(f'Current auto-delete time is {self.vc_delete_time} seconds.')
         else:
             self.vc_delete_time = timeout
-            await ctx.send(f'Changed auto-delete time to {self.vc_delete_time} seconds.', delete_after=2)
+            await ctx.send(f'Changed auto-delete time to {self.vc_delete_time} seconds.')
 
     @deltime.error
     async def deltime_error(self, ctx, error):
