@@ -31,7 +31,10 @@ class Admin(commands.Cog):
             if not message.author.bot:
                 await message.reply(f'Deleting...', delete_after=1)
             await asyncio.sleep(1)
-            await message.delete()
+            try:
+                await message.delete()
+            except:
+                pass
 
     @commands.command(brief='mod command to change vc auto-delete time')
     @commands.has_any_role('Arbiter', 'Bot Master')
