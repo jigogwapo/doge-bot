@@ -24,8 +24,11 @@ class Admin(commands.Cog):
                 await message.channel.send(f'anon message successfully sent. you can now delete your DM.')
 
         if message.channel.id == Admin.starden_testchannel_id and not message.author.bot:
-            await message.reply('the message will be deleted after 20 seconds.', delete_after=20)
-            await asyncio.sleep(20)
+            content = message.content
+            await message.edit(content=f'{content} (Deleting in 20 s)')
+            await asyncio.sleep(19)
+            await message.edit(content=f'{content} (Deleting...)')
+            await asyncio.sleep(1)
             await message.delete()
 
 def setup(bot):
