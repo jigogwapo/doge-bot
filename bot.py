@@ -1,5 +1,4 @@
 import os, discord
-from helpers.paginate import paginate
 import discord.ext.commands as commands
 intents = discord.Intents.all()
 
