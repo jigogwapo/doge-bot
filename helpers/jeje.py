@@ -1,3 +1,5 @@
+import random
+
 jeje_letter_map = {
   "a": ['aA', '@', 'ä', 'ã', 'â', 'A', 'a', '4', 'Aa', '/-\\'],
   "b": ['B', 'V', 'b', 'v', 'bH', 'Bv'],
@@ -26,3 +28,12 @@ jeje_letter_map = {
   "y": ['y', 'Y', 'yY', 'yH', 'Yh'],
   "z": ['z', 'Z', 'zH', 'Zh', 'zzZ'],
 }
+
+def jejenizer(text):
+    new_text = ''
+    for i in text:
+        if i.lower() in jeje_letter_map.keys():
+            new_text += random.choice(jeje_letter_map[i.lower()])
+        else:
+            new_text += i
+    return new_text

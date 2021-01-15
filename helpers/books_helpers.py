@@ -13,7 +13,12 @@ def book_search(book_name):
         book_data = search_data['items'][0]['volumeInfo']
         book_title = book_data['title']
         book_url = book_data['infoLink']
-        book_image = book_data['imageLinks']['thumbnail']
+
+        if 'imageLinks' in book_data.keys():
+            book_image = book_data['imageLinks']['thumbnail']
+        else:
+            book_image = default_book_url
+
         if 'description' in book_data.keys():
             book_description = book_data['description']
             if len(book_description) > 1000:
