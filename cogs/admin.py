@@ -3,6 +3,7 @@ import asyncio
 class Admin(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
+        self.vc_delete_time = 10
 
     starden_server_id = 758361018233126932
     starden_anonchannel_id = 789854981981077514
@@ -25,8 +26,8 @@ class Admin(commands.Cog):
 
         if message.channel.id == Admin.starden_testchannel_id:
             if not message.author.bot:
-                await message.reply(f'Message will be deleted in 10 seconds.', delete_after=1)
-            await asyncio.sleep(9)
+                await message.reply(f'Message will be deleted in {self.vc_delete_time} seconds.', delete_after=1)
+            await asyncio.sleep(self.vc_delete_time-1)
             if not message.author.bot:
                 await message.reply(f'Deleting...', delete_after=1)
             await asyncio.sleep(1)
