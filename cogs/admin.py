@@ -34,8 +34,8 @@ class Admin(commands.Cog):
             await message.delete()
 
     @commands.command(brief='mod command to change vc auto-delete time')
-    @commands.has_any_role(['Arbiter', 'Bot Master'])
-    async def deltime(self, ctx, timeout: int):
+    @commands.has_any_role('Arbiter', 'Bot Master')
+    async def deltime(self, ctx, timeout: int = None):
         self.vc_delete_time = timeout
         await ctx.send(f'Changed auto-delete time to {self.vc_delete_time} seconds.', delete_after=1)
 
