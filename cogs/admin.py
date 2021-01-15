@@ -33,6 +33,17 @@ class Admin(commands.Cog):
             await asyncio.sleep(1)
             await message.delete()
 
+    @commands.command(brief='mod command to change vc auto-delete time')
+    @commands.has_any_role(['Arbiter', 'Bot Master'])
+    async def deltime(self, ctx, timeout: int):
+        self.vc_delete_time = timeout
+        await ctx.send(f'Changed auto-delete time to {self.vc_delete_time} seconds.', delete_after=1)
+
+    @deltime.error
+    async def deltime_error(self, ctx, error):
+        if isinstance(error, commands.BadArgument):
+            await ctx.send('Not a valid integer.')
+
 def setup(bot):
     bot.add_cog(Admin(bot))
     print('Admin cog successfully added.')
