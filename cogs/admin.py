@@ -25,9 +25,8 @@ class Admin(commands.Cog):
 
         if message.channel.id == Admin.starden_testchannel_id and not message.author.bot:
             content = message.content
-            await message.edit(content=f'{content} (Deleting in 20 s)')
             await asyncio.sleep(19)
-            await message.edit(content=f'{content} (Deleting...)')
+            await message.reply(f'Deleting...', delete_after=1)
             await asyncio.sleep(1)
             await message.delete()
 
