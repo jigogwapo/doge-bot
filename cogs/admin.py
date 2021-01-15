@@ -3,7 +3,7 @@ import asyncio
 class Admin(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-        self.vc_delete_time = 10
+        self.vc_delete_time = 1200
 
     starden_server_id = 758361018233126932
     starden_anonchannel_id = 789854981981077514
@@ -24,7 +24,7 @@ class Admin(commands.Cog):
                 await starden_anonchannel.send(f'**anon**: {anon_message}')
                 await message.channel.send(f'anon message successfully sent. you can now delete your DM.')
 
-        if message.channel.id == Admin.starden_testchannel_id:
+        if message.channel.id == Admin.starden_voicechatchannel_id:
             if not message.author.bot:
                 await message.reply(f'Message will be deleted in {self.vc_delete_time} seconds.', delete_after=2)
             await asyncio.sleep(self.vc_delete_time-2)
