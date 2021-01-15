@@ -26,11 +26,11 @@ class Admin(commands.Cog):
 
         if message.channel.id == Admin.starden_testchannel_id:
             if not message.author.bot:
-                await message.reply(f'Message will be deleted in {self.vc_delete_time} seconds.', delete_after=1)
-            await asyncio.sleep(self.vc_delete_time-1)
+                await message.reply(f'Message will be deleted in {self.vc_delete_time} seconds.', delete_after=2)
+            await asyncio.sleep(self.vc_delete_time-2)
             if not message.author.bot:
-                await message.reply(f'Deleting...', delete_after=1)
-            await asyncio.sleep(1)
+                await message.reply(f'Deleting...', delete_after=2)
+            await asyncio.sleep(2)
             try:
                 await message.delete()
             except:
@@ -39,8 +39,11 @@ class Admin(commands.Cog):
     @commands.command(brief='mod command to change vc auto-delete time')
     @commands.has_any_role('Arbiter', 'Bot Master')
     async def deltime(self, ctx, timeout: int = None):
-        self.vc_delete_time = timeout
-        await ctx.send(f'Changed auto-delete time to {self.vc_delete_time} seconds.', delete_after=1)
+        if timeout is None:
+            await ctx.send(f'Current auto-delete time is {self.vc_delete_time} seconds.', delete_after=2)
+        else:
+            self.vc_delete_time = timeout
+            await ctx.send(f'Changed auto-delete time to {self.vc_delete_time} seconds.', delete_after=2)
 
     @deltime.error
     async def deltime_error(self, ctx, error):
