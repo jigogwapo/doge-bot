@@ -8,7 +8,7 @@ class Quotes(commands.Cog):
     @commands.command(brief='display a random quote')
     async def quote(self, ctx):
         quote = get_random_quote()
-        await ctx.send(f'*{quote["content"]}* - {quote["author"]}')
+        await ctx.send(f'> *{quote["content"]}* - {quote["author"]}')
 
 def setup(bot):
     bot.add_cog(Quotes(bot))
