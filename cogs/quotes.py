@@ -5,7 +5,7 @@ class Quotes(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.command(brief='display a random quote')
+    @commands.command(brief='display a random quote', aliases=['q'])
     async def quote(self, ctx, category : str = None):
         if category is None:
             quote = get_random_quote()
@@ -21,7 +21,7 @@ class Quotes(commands.Cog):
         else:
             await ctx.send(f'> *{quote["content"]}* - {quote["author"]}')
 
-    @commands.command(brief='display a list of quote categories')
+    @commands.command(brief='display a list of quote categories', aliases=['qc'])
     async def qcats(self, ctx):
         category_list = get_tag_list()
         content = 'Here\'s a list of quote categories:'

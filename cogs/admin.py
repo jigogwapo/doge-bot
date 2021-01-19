@@ -31,7 +31,7 @@ class Admin(commands.Cog):
             except:
                 pass
 
-    @commands.command(brief='mod command to change vc auto-delete time')
+    @commands.command(brief='mod command to change vc auto-delete time', aliases=['dt'])
     @commands.has_any_role('Arbiter', 'Bot Master')
     async def deltime(self, ctx, timeout: int = None):
         if timeout is None:

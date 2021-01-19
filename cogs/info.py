@@ -6,7 +6,7 @@ class Info(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.command(brief='displays first 20 (for now) members of a role')
+    @commands.command(brief='displays first 20 (for now) members of a role', aliases=['sa'])
     async def sinoang(self, ctx, *, role: discord.Role):
         pg_len = 20                     # items per page
         mem_len = len(role.members)     # total number of members

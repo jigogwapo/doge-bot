@@ -7,7 +7,7 @@ class Books(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.command(brief='search for a book')
+    @commands.command(brief='search for a book', aliases=['b'])
     async def book(self, ctx, *, book_name):
         book = book_search(book_name)
         if book is None:
@@ -18,7 +18,7 @@ class Books(commands.Cog):
             embed.set_thumbnail(url=book['image'])
             await ctx.send(embed=embed)
 
-    @commands.command(brief='search for an author\'s top books')
+    @commands.command(brief='search for an author\'s top books', aliases=['ba', 'a'])
     async def author(self, ctx, *, author_name):
         author_books_list = author_book_search(author_name)
         if author_books_list is None:
