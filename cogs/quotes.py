@@ -7,20 +7,20 @@ class Quotes(commands.Cog):
 
     @commands.command(brief='display a random quote', aliases=['q'])
     async def quote(self, ctx, category : str = None):
-        quotable_credits = 'API credits: https://github.com/lukePeavey/quotable'
-        animechan_credits = 'API credits: https://animechanapi.xyz/'
+        quotable_credits = 'API credits: <https://github.com/lukePeavey/quotable>'
+        animechan_credits = 'API credits: <https://animechanapi.xyz/>'
         if category is None:
             quote = get_random_quote()
-            await ctx.send(f'>>> *{quote["content"]}* - {quote["author"]}\n<{quotable_credits}>')
+            await ctx.send(f'>>> *{quote["content"]}* - {quote["author"]}\n{quotable_credits}')
         else:
             category_list = get_tag_list()
             if category in category_list:
                 if category == 'anime':
                     quote = get_random_anime_quote()
-                    await ctx.send(f'>>> *{quote["content"]}* - {quote["character"]} ({quote["anime"]})\n<{animechan_credits}>')
+                    await ctx.send(f'>>> *{quote["content"]}* - {quote["character"]} ({quote["anime"]})\n{animechan_credits}')
                 else:
                     quote = get_random_quote_with_tag(category)
-                    await ctx.send(f'>>> *{quote["content"]}* - {quote["author"]}\n<{quotable_credits}>')
+                    await ctx.send(f'>>> *{quote["content"]}* - {quote["author"]}\n{quotable_credits}')
             else:
                 quote = None
                 await ctx.send('No such category. Check list of categories with `*qcats`')
