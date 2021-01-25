@@ -16,7 +16,7 @@ class Quotes(commands.Cog):
             quote = get_random_quote()
             embed = Embed(title=quote['content'], description=quote['character'])
             embed.set_footer(text=Quotes.quotable_credits)
-            await ctx.send(embed)
+            await ctx.send(embed=embed)
         else:
             category_list = get_tag_list()
             if category in category_list:
@@ -24,12 +24,12 @@ class Quotes(commands.Cog):
                     quote = get_random_anime_quote()
                     embed = Embed(title=quote['content'], description=f'{quote["character"]} ({quote["anime"]})')
                     embed.set_footer(text=Quotes.animechan_credits)
-                    await ctx.send(embed)
+                    await ctx.send(embed=embed)
                 else:
                     quote = get_random_quote_with_tag(category)
                     embed = Embed(title=quote['content'], description=quote['character'])
                     embed.set_footer(text=Quotes.quotable_credits)
-                    await ctx.send(embed)
+                    await ctx.send(embed=embed)
             else:
                 quote = None
                 await ctx.send('No such category. Check list of categories with `*qcats`')
