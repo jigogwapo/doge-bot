@@ -6,8 +6,8 @@ class Quotes(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    quotable_credits = 'API credits: https://github.com/lukePeavey/quotable'
-    animechan_credits = 'API credits: https://animechanapi.xyz/'
+    # quotable_credits = 'API credits: https://github.com/lukePeavey/quotable'
+    # animechan_credits = 'API credits: https://animechanapi.xyz/'
 
     @commands.command(brief='display a random quote', aliases=['q'])
     async def quote(self, ctx, category : str = None):
@@ -16,7 +16,7 @@ class Quotes(commands.Cog):
             quote = get_random_quote()
             embed = Embed(title=quote['content'], description=quote['author'])
             embed.set_thumbnail(url='https://i.imgur.com/HeGEEbu.jpg')
-            embed.set_footer(text=Quotes.quotable_credits)
+            # embed.set_footer(text=Quotes.quotable_credits)
             await ctx.send(embed=embed)
         else:
             category_list = get_tag_list()
@@ -25,13 +25,13 @@ class Quotes(commands.Cog):
                     quote = get_random_anime_quote()
                     embed = Embed(title=quote['content'], description=f'{quote["character"]} ({quote["anime"]})')
                     embed.set_thumbnail(url='https://i.imgur.com/HeGEEbu.jpg')
-                    embed.set_footer(text=Quotes.animechan_credits)
+                    # embed.set_footer(text=Quotes.animechan_credits)
                     await ctx.send(embed=embed)
                 else:
                     quote = get_random_quote_with_tag(category)
                     embed = Embed(title=quote['content'], description=quote['author'])
                     embed.set_thumbnail(url='https://i.imgur.com/HeGEEbu.jpg')
-                    embed.set_footer(text=Quotes.quotable_credits)
+                    # embed.set_footer(text=Quotes.quotable_credits)
                     await ctx.send(embed=embed)
             else:
                 quote = None
