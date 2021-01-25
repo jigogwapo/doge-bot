@@ -14,7 +14,9 @@ class Quotes(commands.Cog):
 
         if category is None:
             quote = get_random_quote()
-            await ctx.send(f'>>> *{quote["content"]}* - {quote["author"]}')
+            embed = Embed(title=quote['content'], description=quote['character'])
+            embed.set_footer(text=Quotes.quotable_credits)
+            await ctx.send(embed)
         else:
             category_list = get_tag_list()
             if category in category_list:
