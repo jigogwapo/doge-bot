@@ -14,7 +14,7 @@ class Quotes(commands.Cog):
 
         if category is None:
             quote = get_random_quote()
-            embed = Embed(title=quote['content'], description=quote['character'])
+            embed = Embed(title=quote['content'], description=quote['author'])
             embed.set_footer(text=Quotes.quotable_credits)
             await ctx.send(embed=embed)
         else:
@@ -27,7 +27,7 @@ class Quotes(commands.Cog):
                     await ctx.send(embed=embed)
                 else:
                     quote = get_random_quote_with_tag(category)
-                    embed = Embed(title=quote['content'], description=quote['character'])
+                    embed = Embed(title=quote['content'], description=quote['author'])
                     embed.set_footer(text=Quotes.quotable_credits)
                     await ctx.send(embed=embed)
             else:
