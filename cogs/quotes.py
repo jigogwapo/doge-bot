@@ -10,15 +10,20 @@ class Quotes(commands.Cog):
     # quotable_credits = 'API credits: https://github.com/lukePeavey/quotable'
     # animechan_credits = 'API credits: https://animechanapi.xyz/'
 
-    starden_gen_channel_id = 758361018233126936
+    starden_genchannel_id = 758361018233126936
 
     @tasks.loop(hours=1)
     async def hourlyquote(self):
         quote = get_random_quote()
-        starden_gen_channel = self.bot.get_channel(Quotes.starden_gen_channel_id)
+        starden_genchannel = self.bot.get_channel(Quotes.starden_genchannel_id)
         embed = Embed(title=quote['content'], description=quote['author'])
         embed.set_thumbnail(url='https://i.imgur.com/HeGEEbu.jpg')
-        await starden_gen_channel.send(embed=embed)
+        await starden_genchannel.send(embed=embed)
+
+    @hourlyquote.before_loop
+    async def before_hourlyquote(self):
+        print('waiting for bot to be ready...')
+        await self.bot.wait_until_ready()
 
     @commands.command(brief='display a random quote', aliases=['q'])
     async def quote(self, ctx, category : str = None):
