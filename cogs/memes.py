@@ -39,6 +39,10 @@ class Memes(commands.Cog):
             text = no_everyone_here(args[0])
             await ctx.send(f'Pakiss nga {text}!')
 
+    @commands.command(brief='delete')
+    async def delete(self, ctx, *args):
+        await ctx.send('My goodnessssss\nWe need to delete this server asap')
+
     @commands.command(brief='for saying you\'re chararat')
     async def chararat(self, ctx, *args):
         if len(args) == 0:
