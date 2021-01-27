@@ -1,5 +1,6 @@
 from discord.ext import commands, tasks
 from discord import Embed
+from random import choice
 from helpers.quotes_helpers import get_random_quote, get_tag_list, get_random_quote_with_tag, get_random_anime_quote
 
 class Quotes(commands.Cog):
@@ -14,10 +15,16 @@ class Quotes(commands.Cog):
 
     @tasks.loop(hours=1)
     async def hourlyquote(self):
-        quote = get_random_quote()
+        isAnime = choice([True, False])
         starden_genchannel = self.bot.get_channel(Quotes.starden_genchannel_id)
-        embed = Embed(title=quote['content'], description=quote['author'])
-        embed.set_thumbnail(url='https://i.imgur.com/HeGEEbu.jpg')
+        if isAnime:
+            quote = get_random_anime_quote()
+            embed = Embed(title=quote['content'], description=f'{quote["character"]} ({quote["anime"]})')
+            embed.set_thumbnail(url='https://i.imgur.com/HeGEEbu.jpg')
+        else:
+            quote = get_random_quote()
+            embed = Embed(title=quote['content'], description=quote['author'])
+            embed.set_thumbnail(url='https://i.imgur.com/HeGEEbu.jpg')
         await starden_genchannel.send(embed=embed)
 
     @hourlyquote.before_loop
