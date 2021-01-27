@@ -19,11 +19,11 @@ class Quotes(commands.Cog):
         starden_genchannel = self.bot.get_channel(Quotes.starden_genchannel_id)
         if isAnime:
             quote = get_random_anime_quote()
-            embed = Embed(title=quote['content'], description=f'{quote["character"]} ({quote["anime"]})')
+            embed = Embed(description=quote['content'], title=f'{quote["character"]} ({quote["anime"]})')
             embed.set_thumbnail(url='https://i.imgur.com/HeGEEbu.jpg')
         else:
             quote = get_random_quote()
-            embed = Embed(title=quote['content'], description=quote['author'])
+            embed = Embed(description=quote['content'], title=quote['author'])
             embed.set_thumbnail(url='https://i.imgur.com/HeGEEbu.jpg')
         await starden_genchannel.send(embed=embed)
 
@@ -37,7 +37,7 @@ class Quotes(commands.Cog):
 
         if category is None:
             quote = get_random_quote()
-            embed = Embed(title=quote['content'], description=quote['author'])
+            embed = Embed(description=quote['content'], title=quote['author'])
             embed.set_thumbnail(url='https://i.imgur.com/HeGEEbu.jpg')
             # embed.set_footer(text=Quotes.quotable_credits)
             await ctx.send(embed=embed)
@@ -46,13 +46,13 @@ class Quotes(commands.Cog):
             if category in category_list:
                 if category == 'anime':
                     quote = get_random_anime_quote()
-                    embed = Embed(title=quote['content'], description=f'{quote["character"]} ({quote["anime"]})')
+                    embed = Embed(description=quote['content'], title=f'{quote["character"]} ({quote["anime"]})')
                     embed.set_thumbnail(url='https://i.imgur.com/HeGEEbu.jpg')
                     # embed.set_footer(text=Quotes.animechan_credits)
                     await ctx.send(embed=embed)
                 else:
                     quote = get_random_quote_with_tag(category)
-                    embed = Embed(title=quote['content'], description=quote['author'])
+                    embed = Embed(description=quote['content'], title=quote['author'])
                     embed.set_thumbnail(url='https://i.imgur.com/HeGEEbu.jpg')
                     # embed.set_footer(text=Quotes.quotable_credits)
                     await ctx.send(embed=embed)
