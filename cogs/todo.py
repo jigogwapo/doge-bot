@@ -5,7 +5,7 @@ class Todo(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.group()
+    @commands.group(brief='Show a list of your todos. Use *help td for subcommands.')
     async def td(self, ctx):
         if ctx.invoked_subcommand is None:
             discord_id = ctx.author.id
@@ -25,7 +25,7 @@ class Todo(commands.Cog):
                         content += f'{i+1} - {todo.content}\n'
                 await ctx.send(content)
 
-    @td.command()
+    @td.command(brief='Add an item to your todo list.')
     async def add(self, ctx, *, todo_content):
         discord_id = ctx.author.id
         if not User.objects(discord_id=discord_id):
@@ -33,7 +33,7 @@ class Todo(commands.Cog):
         add_todo(discord_id, todo_content)
         await ctx.send(f'Added *{todo_content}* to your todos.')
 
-    @td.command()
+    @td.command(brief='Set a todo item as done or vice versa.')
     async def done(self, ctx, *, args):
         discord_id = ctx.author.id
         if args == 'all':
@@ -51,7 +51,7 @@ class Todo(commands.Cog):
                 await ctx.send('Invalid argument.')
 
 
-    @td.command(aliases=['del'])
+    @td.command(aliases=['del'], brief='Delete a todo item.')
     async def delete(self, ctx, *, args):
         discord_id = ctx.author.id
         if args == 'all':
