@@ -11,5 +11,6 @@ bot.load_extension('cogs.books')
 bot.load_extension('cogs.info')
 bot.load_extension('cogs.admin')
 bot.load_extension('cogs.quotes')
+bot.load_extension('cogs.todo')
 
 bot.run(TOKEN)
