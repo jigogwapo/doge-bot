@@ -16,9 +16,9 @@ class Todo(commands.Cog):
 
     todo_flavortexts = [
         'Oi {}! Eto yung mga kailangan mong gawin:\n',
-        '{}, gawin mo to:',
-        'Sana di makalimutan ni {} na gawin ang mga to:',
-        'Eto ang listahan mo, {}:'
+        '{}, gawin mo to:\n',
+        'Sana di makalimutan ni {} na gawin ang mga to:\n',
+        'Eto ang listahan mo, {}:\n'
     ]
 
     @commands.group(brief='Show a list of your todos. Use *help td for subcommands.')
