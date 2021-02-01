@@ -1,10 +1,26 @@
 from discord.ext import commands
+import random
 from helpers.todo_helpers import add_todo, delete_all_todos, delete_todo, get_todos, create_user, set_all_done, set_todo_done
 from models.User import User
 
 class Todo(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
+
+    todo_emojis = [
+        '<:linus_gun:761509258499981342>',
+        '<:yellingwoman:758971086137982976>',
+        '<a:weewoo_siren:791201257532030976>',
+        '<:starden_CutieYodaGun:793922870601318400>',
+        '<a:doggiehi:791200715883937792>'
+    ]
+
+    todo_flavortexts = [
+        'Oi {}! Eto yung mga kailangan mong gawin:\n',
+        '{}, gawin mo to:\n',
+        'Sana di makalimutan ni {} na gawin ang mga to:\n',
+        'Eto ang listahan mo, {}:\n'
+    ]
 
     @commands.group(brief='Show a list of your todos. Use *help td for subcommands.')
     async def td(self, ctx):
@@ -17,13 +33,16 @@ class Todo(commands.Cog):
             if todo_list == []:
                 await ctx.send('You have no todos yet. Add one using `*td add <your todo>`.')
             else:
-                content = f'{name}\'s todos:\n'
+                text = random.choice(Todo.todo_flavortexts)
+                content = text.format(name)
                 content += '>>> '
                 for i, todo in enumerate(todo_list):
                     if todo.done:
                         content += f'{i+1} - ~~{todo.content}~~ :white_check_mark:\n'
                     else:
                         content += f'{i+1} - {todo.content}\n'
+                emoji = random.choice(Todo.todo_emojis)
+                await ctx.send(emoji)
                 await ctx.send(content)
 
     @td.command(brief='Add an item to your todo list.')
