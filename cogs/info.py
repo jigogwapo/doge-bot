@@ -11,8 +11,21 @@ class Info(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    bday_emoji_list = ['<a:happybirthday:805884658046205972>',
-        '<:linus_gun:761509258499981342>', '<a:yykawaii_Yay_confetti:788707701424783421>']
+    bday_emoji_list = [
+        '<a:happybirthday:805884658046205972>',
+        '<:linus_gun:761509258499981342>',
+        '<a:yykawaii_Yay_confetti:788707701424783421>',
+        '<a:yypink_BouncyCake:803970227708362772>',
+        '<a:yykawaii_baby_dance:788687662705934336>',
+        '<a:zzNekoAtsume_jump:804348020992507924>'
+        ]
+
+    no_bday_emoji_list = [
+        '<:peepo_sad:760424879978709012>',
+        '<:starden_cat_criKet:760355767777361960>',
+        '<:wtfpain:764528591618310154>',
+        '<a:excuseme:791200676264017960>'
+    ]
 
     @commands.command(brief='save your birthday')
     async def bday(self, ctx, *args):
@@ -63,15 +76,17 @@ class Info(commands.Cog):
                     break
             else:
                 try:
-                    emoji = random.choice(Info.bday_emoji_list)
                     if not User.objects(discord_id=ctx.author.id):
                         create_user(ctx.author.id)
                     users = get_birthdays_on(*data)
                     givendate = dt.date(year=2000, month=data[0], day=data[1])
                     bdaystring = f'{givendate.strftime("%B")} {givendate.day}'
                     if not users:
-                        await ctx.send('Walang manglilibre sa {bdaystring}.')
+                        emoji = random.choice(Info.no_bday_emoji_list)
+                        await ctx.send(emoji)
+                        await ctx.send(f'Walang manglilibre sa {bdaystring}.')
                     else:
+                        emoji = random.choice(Info.bday_emoji_list)
                         await ctx.send(emoji)
                         content = f'Eto yung mga manglilibre sa {bdaystring}:'
                         content += '```'
