@@ -1,10 +1,28 @@
 import discord
 from discord.ext import commands
 from helpers.paginate import paginate
+from helpers.birthday_helpers import save_birthday
 
 class Info(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
+
+    @commands.command(brief='save your birthday')
+    async def bday(self, ctx, *args):
+        if len(args) != 3:
+            await ctx.send('Format should be `*bday YYYY MM DD`, ex. `*bday 1990 12 1`')
+        else:
+            for index, num in args:
+                try:
+                    args[index] = int(num)
+                except:
+                    await ctx.send('Input must be integers.')
+                    break
+            else:
+                try:
+                    save_birthday(ctx.author.id, *args)
+                except:
+                    await ctx.send('That doesn\'t seem like a valid date.')
 
     @commands.command(brief='displays first 20 (for now) members of a role', aliases=['sa'])
     async def sinoang(self, ctx, *, role: discord.Role):

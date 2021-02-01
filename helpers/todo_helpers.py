@@ -1,22 +1,4 @@
-import os
-from datetime import datetime
-from mongoengine import Document,EmbeddedDocument, connect
-from mongoengine.base.fields import ObjectIdField
-from mongoengine.fields import BooleanField, EmbeddedDocumentField, ListField, StringField, IntField, ReferenceField, DateTimeField
-
-mongodb_uri = os.getenv('MONGODB_URI')
-connect('starden', host=mongodb_uri)
-print('Connected to database.')
-
-class Todo(EmbeddedDocument):
-    id = ObjectIdField()
-    content = StringField(required=True, min_length=1, max_length=280)
-    date_added = DateTimeField(required=True, default=datetime.utcnow)
-    done = BooleanField(required=True, default=False)
-
-class User(Document):
-    discord_id = IntField(required=True, unique=True)
-    todos = ListField(EmbeddedDocumentField(Todo))
+from models.User import User, Todo
 
 def create_user(discord_id):
     user = User(discord_id=discord_id)

@@ -1,8 +1,13 @@
 import os, discord
 import discord.ext.commands as commands
+from mongoengine import connect
 intents = discord.Intents.all()
 
 TOKEN = os.getenv("DISCORD_BOT_TOKEN")
+mongodb_uri = os.getenv('MONGODB_URI')
+
+connect('starden', host=mongodb_uri)
+print('Connected to database.')
 
 bot = commands.Bot(command_prefix='*', intents=intents)
 
