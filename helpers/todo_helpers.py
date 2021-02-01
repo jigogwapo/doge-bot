@@ -2,7 +2,7 @@ import os
 from datetime import datetime
 from mongoengine import Document,EmbeddedDocument, connect
 from mongoengine.base.fields import ObjectIdField
-from mongoengine.fields import BooleanField, EmbeddedDocumentField, ListField, StringField, IntField, ReferenceField, DateTimeField
+from mongoengine.fields import BooleanField, DateField, EmbeddedDocumentField, ListField, StringField, IntField, ReferenceField, DateTimeField
 
 mongodb_uri = os.getenv('MONGODB_URI')
 connect('starden', host=mongodb_uri)
@@ -17,6 +17,7 @@ class Todo(EmbeddedDocument):
 class User(Document):
     discord_id = IntField(required=True, unique=True)
     todos = ListField(EmbeddedDocumentField(Todo))
+    birthday = DateField()
 
 def create_user(discord_id):
     user = User(discord_id=discord_id)
