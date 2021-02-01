@@ -1,5 +1,6 @@
 from discord.ext import commands
-from helpers.todo_helpers import add_todo, delete_all_todos, delete_todo, get_todos, create_user, set_all_done, set_todo_done, User
+from helpers.todo_helpers import add_todo, delete_all_todos, delete_todo, get_todos, create_user, set_all_done, set_todo_done
+from models.User import User
 
 class Todo(commands.Cog):
     def __init__(self, bot):

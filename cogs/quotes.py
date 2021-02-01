@@ -6,7 +6,7 @@ from helpers.quotes_helpers import get_random_quote, get_tag_list, get_random_qu
 class Quotes(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-        self.hourlyquote.start()
+        # self.hourlyquote.start()
 
     # quotable_credits = 'API credits: https://github.com/lukePeavey/quotable'
     # animechan_credits = 'API credits: https://animechanapi.xyz/'
