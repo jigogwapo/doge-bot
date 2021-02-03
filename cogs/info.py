@@ -77,7 +77,7 @@ class Info(commands.Cog):
         await ctx.message.delete(5)
 
     @commands.command(brief='display a list of birthdays')
-    @commands.has_any_role('Arbiter', 'Bot Master')
+    @commands.has_any_role('Arbiter', 'Bot Meowster')
     async def bdaylist(self, ctx):
         birthday_list = get_birthdays()
         content = 'Here\'s a list of birthdays:'
@@ -88,7 +88,7 @@ class Info(commands.Cog):
         await ctx.send(f'```{content}```')
 
     @commands.command(brief='display users with birthdays on a given day')
-    @commands.has_any_role('Arbiter', 'Bot Master')
+    @commands.has_any_role('Arbiter', 'Bot Meowster')
     async def bdayon(self, ctx, *args):
         if len(args) != 2:
             await ctx.send('Format should be `*bdayon MM DD`, ex. `*bdayon 12 1`')
@@ -126,7 +126,7 @@ class Info(commands.Cog):
                     await ctx.send('That doesn\'t seem like a valid date.')
 
     @commands.command(brief='posts bday commands to #birthdays channel')
-    @commands.has_any_role('Arbiter', 'Bot Master')
+    @commands.has_any_role('Arbiter', 'Bot Meowster')
     async def bdayposthelp(self, ctx):
         bday_channel = self.bot.get_channel(Info.starden_bday_channel_id)
         content = '''To add birthday to database, use the command: `*bday MM DD`
