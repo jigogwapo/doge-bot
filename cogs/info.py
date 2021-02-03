@@ -28,7 +28,7 @@ class Info(commands.Cog):
     ]
 
     async def post_bday_card(self, ctx):
-        await ctx.send(file=discord.File('../static/starden_bday_card.png'))
+        await ctx.send(file=discord.File('static/starden_bday_card.png'))
 
     @commands.command(hidden=True)
     async def bdaygreet(self, ctx):
