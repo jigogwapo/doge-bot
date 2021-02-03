@@ -9,6 +9,11 @@ from models.User import User
 
 def check_if_bday_channel(ctx):
     return ctx.channel.id == 806463388015132712
+
+def get_bdaystring(month, day):
+    givendate = dt.date(year=2000, month=month, day=day)
+    bdaystring = f'{givendate.strftime("%B")} {givendate.day}'
+    return bdaystring
 class Info(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
@@ -71,7 +76,7 @@ class Info(commands.Cog):
                     save_birthday(ctx.author.id, *data)
                     emoji = random.choice(Info.bday_emoji_list)
                     await ctx.send(emoji, delete_after=10)
-                    await ctx.send('Birthday has been saved.', delete_after=10)
+                    await ctx.send(f'Birthday ({get_bdaystring(*data)}) has been saved.', delete_after=10)
                 except:
                     await ctx.send('That doesn\'t seem like a valid date.', delete_after=10)
         await ctx.message.delete(delay=5)
