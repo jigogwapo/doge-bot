@@ -44,6 +44,7 @@ class Todo(commands.Cog):
                 emoji = random.choice(Todo.todo_emojis)
                 await ctx.send(emoji)
                 await ctx.send(content)
+        await ctx.message.delete(delay=5)
 
     @td.command(brief='Add an item to your todo list.')
     async def add(self, ctx, *, todo_content):
@@ -51,24 +52,26 @@ class Todo(commands.Cog):
         if not User.objects(discord_id=discord_id):
             create_user(discord_id)
         add_todo(discord_id, todo_content)
-        await ctx.send(f'Added *{todo_content}* to your todos.')
+        await ctx.send(f'Added *{todo_content}* to your todos.', delete_after=10)
+        await ctx.message.delete(delay=5)
 
     @td.command(brief='Set a todo item as done or vice versa.')
     async def done(self, ctx, *, args):
         discord_id = ctx.author.id
         if args == 'all':
             set_all_done(discord_id)
-            await ctx.send('Set all todos to done.')
+            await ctx.send('Set all todos to done.', delete_after=10)
         else:
             try:
                 todo_num = int(args)
                 todo = set_todo_done(discord_id, todo_num)
                 if todo.done:
-                    await ctx.send(f'Set *{todo.content}* to done.')
+                    await ctx.send(f'Set *{todo.content}* to done.', delete_after=10)
                 else:
-                    await ctx.send(f'Set *{todo.content}* to ongoing.')
+                    await ctx.send(f'Set *{todo.content}* to ongoing.', delete_after=10)
             except:
-                await ctx.send('Invalid argument.')
+                await ctx.send('Invalid argument.', delete_after=10)
+        await ctx.message.delete(delay=5)
 
 
     @td.command(aliases=['del'], brief='Delete a todo item.')
@@ -76,14 +79,15 @@ class Todo(commands.Cog):
         discord_id = ctx.author.id
         if args == 'all':
             delete_all_todos(discord_id)
-            await ctx.send(f'Deleted all todos.')
+            await ctx.send(f'Deleted all todos.', delete_after=10)
         else:
             try:
                 todo_num = int(args)
                 todo = delete_todo(discord_id, todo_num)
-                await ctx.send(f'Deleted *{todo.content}*.')
+                await ctx.send(f'Deleted *{todo.content}*.', delete_after=10)
             except:
-                await ctx.send('Invalid argument.')
+                await ctx.send('Invalid argument.', delete_after=10)
+        await ctx.message.delete(delay=5)
 
 def setup(bot):
     bot.add_cog(Todo(bot))
