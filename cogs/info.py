@@ -132,7 +132,7 @@ class Info(commands.Cog):
         content = '''To add birthday to database, use the command: `*bday MM DD`
         e.g. `*bday 4 20` (if your birthday is on April 20)
         '''
-        bday_channel.send(content)
+        await bday_channel.send(content)
 
     @tasks.loop(hours=24)
     async def birthdaygreeting(self):
