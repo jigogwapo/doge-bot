@@ -74,7 +74,7 @@ class Info(commands.Cog):
                     await ctx.send('Birthday has been saved.', delete_after=10)
                 except:
                     await ctx.send('That doesn\'t seem like a valid date.', delete_after=10)
-        await ctx.message.delete(5)
+        await ctx.message.delete(delay=5)
 
     @commands.command(brief='display a list of birthdays')
     @commands.has_any_role('Arbiter', 'Bot Meowster')
