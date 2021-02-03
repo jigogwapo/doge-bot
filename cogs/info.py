@@ -125,6 +125,15 @@ class Info(commands.Cog):
                 except:
                     await ctx.send('That doesn\'t seem like a valid date.')
 
+    @commands.command(brief='posts bday commands to #birthdays channel')
+    @commands.has_any_role('Arbiter', 'Bot Master')
+    async def bdayposthelp(self, ctx):
+        bday_channel = self.bot.get_channel(Info.starden_bday_channel_id)
+        content = '''To add birthday to database, use the command: `*bday MM DD`
+        e.g. `*bday 4 20` (if your birthday is on April 20)
+        '''
+        bday_channel.send(content)
+
     @tasks.loop(hours=24)
     async def birthdaygreeting(self):
         print('Running birthday loop instance.')
