@@ -27,6 +27,13 @@ class Info(commands.Cog):
         '<a:excuseme:791200676264017960>'
     ]
 
+    async def post_bday_card(self, ctx):
+        await ctx.send(file=discord.File('../static/starden_bday_card.png'))
+
+    @commands.command(hidden=True)
+    async def bdaygreet(self, ctx):
+        await Info.post_bday_card(self, ctx)
+
     @commands.command(brief='save your birthday')
     async def bday(self, ctx, *args):
         if len(args) != 2:
