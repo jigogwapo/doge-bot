@@ -7,9 +7,12 @@ from helpers.birthday_helpers import save_birthday, get_birthdays, get_birthdays
 from helpers.todo_helpers import create_user
 from models.User import User
 
+def check_if_bday_channel(ctx):
+    return ctx.channel.id == 780701253280727040
 class Info(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
+        self.birthdaygreeting.start()
 
     bday_emoji_list = [
         '<a:happybirthday:805884658046205972>',
@@ -27,37 +30,53 @@ class Info(commands.Cog):
         '<a:excuseme:791200676264017960>'
     ]
 
-    async def post_bday_card(self, ctx):
-        await ctx.send(file=discord.File('static/starden_bday_card.png'))
+    starden_bday_channel_id = 806463388015132712
 
-    @commands.command(hidden=True)
-    async def bdaygreet(self, ctx):
-        await Info.post_bday_card(self, ctx)
+    async def post_bday_card(self, channel):
+        await channel.send(file=discord.File('static/starden_bday_card.png'))
+
+    async def post_greeting(self):
+        bday_channel = self.bot.get_channel(Info.starden_bday_channel_id)
+        users = get_birthdays_today()
+        if users:
+            greeting='STARDENBURDENHARDENBART! It\'s {} burrthday{} today! Don\'t forget to greet them!'
+            mention_strings = [f'<@{user.discord_id}>' for user in users]
+            if len(users) >= 2:
+                mentions = ', '.join(mention_strings[:-1]) + f' and {mention_strings[-1]}'
+                plural='s'
+            else:
+                mentions = mention_strings[0]
+                plural=''
+            content = greeting.format(mentions,plural)
+            await bday_channel.send(content)
+            await Info.post_bday_card(self, channel=bday_channel)
 
     @commands.command(brief='save your birthday')
+    @commands.check(check_if_bday_channel)
     async def bday(self, ctx, *args):
         if len(args) != 2:
-            await ctx.send('Format should be `*bday MM DD`, ex. `*bday 12 1`')
+            await ctx.send('Format should be `*bday MM DD`, ex. `*bday 12 1`', delete_after=10)
         else:
             data = list(args)
             for index, num in enumerate(args):
                 try:
                     data[index] = int(num)
                 except Exception as ex:
-                    # print(ex)
-                    # await ctx.send('Input must be integers.')
-                    await ctx.send(ex)
+                    await ctx.send(ex, delete_after=10)
                     break
             else:
                 try:
                     if not User.objects(discord_id=ctx.author.id):
                         create_user(ctx.author.id)
                     save_birthday(ctx.author.id, *data)
-                    await ctx.send('Birthday has been saved.')
+                    emoji = random.choice(Info.bday_emoji_list)
+                    await ctx.send(emoji, delete_after=10)
+                    await ctx.send('Birthday has been saved.', delete_after=10)
                 except:
-                    await ctx.send('That doesn\'t seem like a valid date.')
+                    await ctx.send('That doesn\'t seem like a valid date.', delete_after=10)
 
     @commands.command(brief='display a list of birthdays')
+    @commands.has_any_role('Arbiter', 'Bot Master')
     async def bdaylist(self, ctx):
         birthday_list = get_birthdays()
         content = 'Here\'s a list of birthdays:'
@@ -68,6 +87,7 @@ class Info(commands.Cog):
         await ctx.send(f'```{content}```')
 
     @commands.command(brief='display users with birthdays on a given day')
+    @commands.has_any_role('Arbiter', 'Bot Master')
     async def bdayon(self, ctx, *args):
         if len(args) != 2:
             await ctx.send('Format should be `*bdayon MM DD`, ex. `*bdayon 12 1`')
@@ -104,30 +124,19 @@ class Info(commands.Cog):
                 except:
                     await ctx.send('That doesn\'t seem like a valid date.')
 
-    @commands.command(brief='display users whose birthday is today')
-    async def bdaynow(self, ctx):
-        if not User.objects(discord_id=ctx.author.id):
-            create_user(ctx.author.id)
-        users = get_birthdays_today()
-        if not users:
-            await ctx.send('Walang manglilibre ngayon. :(')
-        else:
-            content = 'Happy birthday! Palibre naman!'
-            for user in users:
-                user_name = self.bot.get_user(user.discord_id).display_name
-                content += f'\n{user_name}'
-            await ctx.send(f'```{content}```')
-
     @tasks.loop(hours=24)
     async def birthdaygreeting(self):
-        pass
+        print('Running birthday loop instance.')
+        await Info.post_greeting(self)
 
     @birthdaygreeting.before_loop
     async def before_birthdaygreeting(self):
+        print('waiting for bot to be ready...')
         await self.bot.wait_until_ready()
         for _ in range(6*60*24):
-            if dt.datetime.now().hour == 0:
-                print('Starting loop at exactly Midnight.')
+            timenow = dt.datetime.now()
+            if timenow.hour == 6 and timenow.minute == 0:
+                print('Starting loop.')
                 break
             await asyncio.sleep(10)
 
