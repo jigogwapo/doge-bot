@@ -8,7 +8,7 @@ from helpers.todo_helpers import create_user
 from models.User import User
 
 def check_if_bday_channel(ctx):
-    return ctx.channel.id == 780701253280727040
+    return ctx.channel.id == 806463388015132712
 class Info(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
