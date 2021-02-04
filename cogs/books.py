@@ -1,7 +1,7 @@
 import discord
 from discord.ext import commands
 from helpers.books_helpers import book_search, author_book_search
-from helpers.paginate import paginate
+from helpers.reaction_helpers import paginate
 
 class Books(commands.Cog):
     def __init__(self, bot):
