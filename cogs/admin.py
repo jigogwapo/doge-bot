@@ -57,8 +57,8 @@ class Admin(commands.Cog):
                 '<a:ztarden_TaroDanceGeros:801239041625686037>',
                 '<a:ztarden_TaroDanceElder:801239041701052426>'
             ]
-            starden_genchannel.send(''.join(tarodancers))
-            starden_genchannel.send(f'Welcome new ket {member.mention}! I\'m Doge.')
+            await starden_genchannel.send(''.join(tarodancers))
+            await starden_genchannel.send(f'Welcome new ket {member.mention}! I\'m Doge.')
 
     @commands.command(brief='mod command to change vc auto-delete time', aliases=['dt'])
     @commands.has_any_role('Arbiter', 'Bot Meowster')
