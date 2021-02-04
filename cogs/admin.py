@@ -46,6 +46,7 @@ class Admin(commands.Cog):
         if member.guild.id == Admin.starden_server_id:
             starden_genchannel = self.bot.get_channel(Admin.starden_genchannel_id)
             tarodancers = [
+                '<a:doge:788688516707385395>',
                 '<a:ztarden_TaroDanceSam:800943071545655346>',
                 '<a:ztarden_TaroDanceCarrie:800952631165059122>',
                 '<a:ztarden_TaroDanceErn:800954713113493514>'
@@ -55,10 +56,11 @@ class Admin(commands.Cog):
                 '<a:ztarden_TaroDanceKing:801239042012086283>',
                 '<a:ztarden_TaroDanceGold:800950085344952352>',
                 '<a:ztarden_TaroDanceGeros:801239041625686037>',
-                '<a:ztarden_TaroDanceElder:801239041701052426>'
+                '<a:ztarden_TaroDanceElder:801239041701052426>',
+                '<a:doge_dance:788688533451178004>'
             ]
             await starden_genchannel.send(''.join(tarodancers))
-            await starden_genchannel.send(f'Welcome new ket {member.mention}! I\'m Doge.')
+            await starden_genchannel.send(f'Welcome new ket {member.mention} to STARDENBURDENHARDENBART! I\'m Doge.')
 
     @commands.command(brief='mod command to change vc auto-delete time', aliases=['dt'])
     @commands.has_any_role('Arbiter', 'Bot Meowster')
