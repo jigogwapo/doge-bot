@@ -93,7 +93,7 @@ class Info(commands.Cog):
             bdaystring = f'{user.birthday.strftime("%B")} {user.birthday.day}'
             content += f'\n{bdaystring} - {user_name}'
         message = await ctx.send(f'```{content}```')
-        add_delete_button(ctx, self.bot, message)
+        await add_delete_button(ctx, self.bot, message)
 
     @commands.command(brief='display users with birthdays on a given day')
     @commands.has_any_role('Arbiter', 'Bot Meowster')
