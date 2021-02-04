@@ -36,6 +36,7 @@ class Admin(commands.Cog):
         if message.reference.resolved.author.id == self.bot.user.id and "Bot Meowster" in author_roles:
             if message.content == 'DELETE THIS':
                 await message.channel.send('YES MEOWSTER', delete_after=10)
+                await message.reference.resolved.delete(delay=8)
                 await message.delete(delay=8)
 
     @commands.command(brief='mod command to change vc auto-delete time', aliases=['dt'])
