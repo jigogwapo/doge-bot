@@ -35,6 +35,7 @@ class Info(commands.Cog):
         '<a:excuseme:791200676264017960>'
     ]
 
+    starden_guild_id = 758361018233126932
     starden_bday_channel_id = 806463388015132712
 
     async def post_bday_card(self, channel):
@@ -86,8 +87,9 @@ class Info(commands.Cog):
     async def bdaylist(self, ctx):
         birthday_list = get_birthdays()
         content = 'Here\'s a list of birthdays:'
+        starden_guiild = self.bot.get_guild(Info.starden_guild_id)
         for user in birthday_list:
-            user_name = self.bot.get_user(user.discord_id).display_name
+            user_name = starden_guiild.get_member(user.discord_id).display_name
             bdaystring = f'{user.birthday.strftime("%B")} {user.birthday.day}'
             content += f'\n{bdaystring} - {user_name}'
         await ctx.send(f'```{content}```')
