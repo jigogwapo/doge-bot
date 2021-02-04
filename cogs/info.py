@@ -2,7 +2,7 @@ import discord, asyncio
 import datetime as dt
 import random
 from discord.ext import commands, tasks
-from helpers.paginate import paginate
+from helpers.reaction_helpers import paginate, add_delete_button
 from helpers.birthday_helpers import save_birthday, get_birthdays, get_birthdays_on, get_birthdays_today
 from helpers.todo_helpers import create_user
 from models.User import User
@@ -92,7 +92,8 @@ class Info(commands.Cog):
             user_name = starden_guiild.get_member(user.discord_id).display_name
             bdaystring = f'{user.birthday.strftime("%B")} {user.birthday.day}'
             content += f'\n{bdaystring} - {user_name}'
-        await ctx.send(f'```{content}```')
+        message = await ctx.send(f'```{content}```')
+        add_delete_button(ctx, self.bot, message)
 
     @commands.command(brief='display users with birthdays on a given day')
     @commands.has_any_role('Arbiter', 'Bot Meowster')

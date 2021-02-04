@@ -44,3 +44,16 @@ async def paginate(ctx, bot, content_list, *, isEmbed=False):
 
         except asyncio.TimeoutError:
             break
+
+async def add_delete_button(ctx, bot, message):
+    await message.add_reaction('❌')
+
+    def check_react(reaction, user):
+        return user == ctx.author and str(reaction.emoji) in ['❌']
+
+    while True:
+        try:
+            await bot.wait_for('reaction_add', timeout=60, check=check_react)
+            await message.delete()
+        except asyncio.TimeoutError:
+            break
