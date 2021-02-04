@@ -1,4 +1,5 @@
 from discord.ext import commands
+from discord.utils import get
 import asyncio
 class Admin(commands.Cog):
     def __init__(self, bot):
@@ -30,6 +31,12 @@ class Admin(commands.Cog):
                 await message.delete()
             except:
                 pass
+
+        author_roles = [role.name for role in message.author.roles]
+        if message.reference.resolved.author.id == self.bot.user.id and "Bot Meowster" in author_roles:
+            if message.content == 'DELETE THIS':
+                await message.channel.send('YES MEOWSTER', delete_after=10)
+                await message.delete(delay=8)
 
     @commands.command(brief='mod command to change vc auto-delete time', aliases=['dt'])
     @commands.has_any_role('Arbiter', 'Bot Meowster')
