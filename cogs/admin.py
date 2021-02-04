@@ -44,7 +44,7 @@ class Admin(commands.Cog):
     @commands.Cog.listener()
     async def on_member_join(self, member):
         if member.guild.id == Admin.starden_server_id:
-            starden_genchannel = self.bot.get_channel(Admin.starden_anonchannel_id)
+            starden_genchannel = self.bot.get_channel(Admin.starden_genchannel_id)
             tarodancers = [
                 '<a:ztarden_TaroDanceSam:800943071545655346>',
                 '<a:ztarden_TaroDanceCarrie:800952631165059122>',
