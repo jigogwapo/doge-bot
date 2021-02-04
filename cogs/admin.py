@@ -32,11 +32,13 @@ class Admin(commands.Cog):
             except:
                 pass
 
-        author_roles = [role.name for role in message.author.roles]
-        if message.reference.resolved.author.id == self.bot.user.id and "Bot Meowster" in author_roles:
-            if message.content == 'DELETE THIS':
-                await message.channel.send('YES MEOWSTER', delete_after=5)
-                await message.reference.resolved.delete(delay=2)
+        if message.reference.resolved is not None:
+            author_roles = [role.name for role in message.author.roles]
+            if message.reference.resolved.author.id == self.bot.user.id and "Bot Meowster" in author_roles:
+                if message.content == 'DELETE THIS':
+                    await message.add_reaction('👍')
+                    await message.channel.send('YES MEOWSTER', delete_after=5)
+                    await message.reference.resolved.delete(delay=2)
 
     @commands.command(brief='mod command to change vc auto-delete time', aliases=['dt'])
     @commands.has_any_role('Arbiter', 'Bot Meowster')
