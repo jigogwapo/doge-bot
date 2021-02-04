@@ -10,6 +10,7 @@ class Admin(commands.Cog):
     starden_anonchannel_id = 789854981981077514
     starden_testchannel_id = 780701253280727040
     starden_voicechatchannel_id = 798943215008088155
+    starden_genchannel_id = 758361018233126936
 
     @commands.Cog.listener()
     async def on_ready(self):
@@ -39,6 +40,12 @@ class Admin(commands.Cog):
                     await message.add_reaction('👍')
                     await message.channel.send('YES BOT MEOWSTER', delete_after=5)
                     await message.reference.resolved.delete()
+
+    @commands.Cog.listener()
+    async def on_member_join(self, member):
+        if member.guild.id == Admin.starden_server_id:
+            starden_genchannel = self.bot.get_channel(Admin.starden_anonchannel_id)
+            starden_genchannel.send(f'Welcome new ket {member.mention}! I\'m Doge.')
 
     @commands.command(brief='mod command to change vc auto-delete time', aliases=['dt'])
     @commands.has_any_role('Arbiter', 'Bot Meowster')
