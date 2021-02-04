@@ -32,7 +32,7 @@ class Admin(commands.Cog):
             except:
                 pass
 
-        if message.reference.resolved is not None:
+        if message.reference is not None:
             author_roles = [role.name for role in message.author.roles]
             if message.reference.resolved.author.id == self.bot.user.id and "Bot Meowster" in author_roles:
                 if message.content == 'DELETE THIS':
