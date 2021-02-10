@@ -25,7 +25,7 @@ class Admin(commands.Cog):
                 anon_message = message.content[6:]
                 await starden_anonchannel.send(f'**anon**: {anon_message}')
                 await message.channel.send(f'anon message successfully sent. you can now delete your DM.')
-            else:
+            elif not message.author.bot:
                 user_name = message.author.name
                 await message.channel.send(f'Hi {user_name}. My Meowster told me to not talk to strangers.')
 
