@@ -20,15 +20,17 @@ class Admin(commands.Cog):
     async def on_message(self, message):
         starden_server = self.bot.get_guild(Admin.starden_server_id)
         if not message.guild: # for solo dms
-            if message.content.startswith('*anon') and starden_server.get_member(message.author.id) is not None:
-                starden_anonchannel = self.bot.get_channel(Admin.starden_anonchannel_id)
-                anon_message = message.content[6:]
-                await starden_anonchannel.send(f'**anon**: {anon_message}')
-                await message.channel.send(f'anon message successfully sent. you can now delete your DM.')
-            elif not message.author.bot:
-                user_name = message.author.name
-                await message.channel.send(f'Hi {user_name}. My Meowster told me to not talk to strangers.')
-
+            if starden_server.get_member(message.author.id) is not None:
+                if message.content.startswith('*anon'):
+                    starden_anonchannel = self.bot.get_channel(Admin.starden_anonchannel_id)
+                    anon_message = message.content[6:]
+                    await starden_anonchannel.send(f'**anon**: {anon_message}')
+                    await message.channel.send(f'anon message successfully sent. you can now delete your DM.')
+                elif not message.author.bot:
+                    user_name = message.author.name
+                    await message.channel.send(f'MUCH WOW {user_name}. TALK ME AT STARDENBURDENHARDENBART.')
+            else:
+                await message.channel.send('...')
         if message.channel.id == Admin.starden_voicechatchannel_id:
             await asyncio.sleep(self.vc_delete_time)
             try:
