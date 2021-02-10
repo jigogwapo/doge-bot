@@ -1,3 +1,5 @@
+import asyncio
+import datetime as dt
 from discord.ext import commands, tasks
 from discord import Embed
 from random import choice
@@ -32,6 +34,13 @@ class Quotes(commands.Cog):
     async def before_hourlyquote(self):
         print('waiting for bot to be ready...')
         await self.bot.wait_until_ready()
+        for _ in range(6*60*24):
+            timenow = dt.datetime.now()
+            # start loop at minute 0 of any hour, e.g., 12:00, 1:00, etc.
+            if timenow.minute == 0:
+                print('Starting loop.')
+                break
+            await asyncio.sleep(10)
 
     @commands.command(brief='display a random quote', aliases=['q'])
     async def quote(self, ctx, category : str = None):

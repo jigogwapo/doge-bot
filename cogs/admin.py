@@ -60,7 +60,7 @@ class Admin(commands.Cog):
                 '<a:doge_dance:788688533451178004>'
             ]
             await starden_genchannel.send(''.join(tarodancers))
-            await starden_genchannel.send(f'Welcome new ket {member.mention} to STARDENBURDENHARDENBART! I\'m Doge.')
+            await starden_genchannel.send(f'Welcome new ket {member.mention} to STARDENBURDENHARDENBART! I\'m Doge-bot. You can check out my commands by typing `*help`.')
 
     @commands.command(brief='mod command to change vc auto-delete time', aliases=['dt'])
     @commands.has_any_role('Arbiter', 'Bot Meowster')
