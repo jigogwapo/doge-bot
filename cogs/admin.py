@@ -25,6 +25,9 @@ class Admin(commands.Cog):
                 anon_message = message.content[6:]
                 await starden_anonchannel.send(f'**anon**: {anon_message}')
                 await message.channel.send(f'anon message successfully sent. you can now delete your DM.')
+            else:
+                user_name = message.author.name
+                await message.channel.send(f'Hi {user_name}. My Meowster told me to not talk to strangers.')
 
         if message.channel.id == Admin.starden_voicechatchannel_id:
             await asyncio.sleep(self.vc_delete_time)
