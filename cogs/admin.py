@@ -28,7 +28,7 @@ class Admin(commands.Cog):
                     await message.channel.send(f'anon message successfully sent. you can now delete your DM.')
                 elif not message.author.bot:
                     user_name = message.author.name
-                    await message.channel.send(f'MUCH WOW {user_name}. TALK ME AT STARDENBURDENHARDENBART.')
+                    await message.channel.send(f'MUCH WOW {user_name.upper()}. TALK ME AT STARDENBURDENHARDENBART.')
             else:
                 await message.channel.send('...')
         if message.channel.id == Admin.starden_voicechatchannel_id:
