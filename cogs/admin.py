@@ -1,5 +1,6 @@
 from discord.ext import commands
 from discord.utils import get
+from mongoengine.errors import DoesNotExist
 from models.User import User
 from helpers.todo_helpers import create_user
 import asyncio
@@ -64,10 +65,11 @@ class Admin(commands.Cog):
                         await message.channel.send('Anon names cannot be longer than 20 characters.')
                     else:
                         try:
+                            User.objects(anon_name=anon_name).get()
+                            await message.channel.send('Your anon name is already taken. Kagaya ni crush.')
+                        except DoesNotExist:
                             add_anon_name(author_id, anon_name)
                             await message.channel.send(f'Anon name set to {anon_name}')
-                        except:
-                            await message.channel.send('Your anon name is already taken. Kagaya ni crush.')
 
                 elif not message.author.bot:
                     user_name = message.author.name
