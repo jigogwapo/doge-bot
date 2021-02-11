@@ -75,8 +75,8 @@ class Admin(commands.Cog):
                         except DoesNotExist:
                             author_user = User.objects(discord_id=author_id).get()
                             try:
-                                timediff = author_user.anon_set_time - dt.datetime.now()
-                                if timediff > dt.time(minute=5):
+                                timediff = dt.datetime.now() - author_user.anon_set_time
+                                if timediff > dt.timedelta(minutes=5):
                                     add_anon_name(author_id, anon_name)
                                     await message.channel.send(f'Anon name set to **{anon_name}**')
                                 else:
