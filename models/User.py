@@ -12,3 +12,4 @@ class User(Document):
     discord_id = IntField(required=True, unique=True)
     birthday = DateField()
     todos = ListField(EmbeddedDocumentField(Todo))
+    anon_name = StringField(max_length=20, unique=True)

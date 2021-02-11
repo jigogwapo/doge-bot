@@ -1,6 +1,18 @@
 from discord.ext import commands
 from discord.utils import get
+from models.User import User
+from helpers.todo_helpers import create_user
 import asyncio
+
+def get_anon_name(discord_id):
+    user = User.objects(discord_id=discord_id).get()
+    return user.anon_name
+
+def add_anon_name(discord_id, anon_name):
+    user = User.objects(discord_id=discord_id).get()
+    user.anon_name = anon_name
+    user.save()
+
 class Admin(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
@@ -30,11 +42,32 @@ class Admin(commands.Cog):
                     await message.channel.send(f'anon message successfully sent. you can now delete your DM.')
 
                 elif message.content.startswith('*purrfect'):
-                    starden_lobbychannel = self.bot.get_channel(Admin.starden_lobbychannel_id)
-                    purrfect_message = message.content[10:]
-                    await starden_lobbychannel.send(f'**anon**: {purrfect_message}')
-                    await message.channel.send('<a:zzNekoAtsume_jump:804348020992507924>')
-                    await message.channel.send('meowssage sent! purrfect!')
+                    author_id = message.author.id
+
+                    if not User.objects(discord_id=author_id):
+                        create_user(author_id)
+
+                    if not User.objects(anon_name__exists=False):
+                        await message.channel.send('Set your anon name first using the `*setname` command.')
+                    else:
+                        anon_name = get_anon_name(author_id)
+                        starden_lobbychannel = self.bot.get_channel(Admin.starden_lobbychannel_id)
+                        purrfect_message = message.content[10:]
+                        await starden_lobbychannel.send(f'{anon_name}: {purrfect_message}')
+                        await message.channel.send('<a:zzNekoAtsume_jump:804348020992507924>')
+                        await message.channel.send('meowssage sent! purrfect!')
+
+                elif message.content.startswith('*setname'):
+                    author_id = message.author.id
+                    anon_name = message.content[9:]
+                    if len(anon_name) > 32:
+                        await message.channel.send('Anon names cannot be longer than 20 characters.')
+                    else:
+                        try:
+                            add_anon_name(author_id, anon_name)
+                            await message.channel.send(f'Anon name set to {anon_name}')
+                        except:
+                            await message.channel.send('Your anon name is already taken. Kagaya ni crush.')
 
                 elif not message.author.bot:
                     user_name = message.author.name
