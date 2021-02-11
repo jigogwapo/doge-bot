@@ -61,7 +61,7 @@ class Admin(commands.Cog):
                 elif message.content.startswith('*setname'):
                     author_id = message.author.id
                     anon_name = message.content[9:]
-                    if len(anon_name) > 32:
+                    if len(anon_name) > 20:
                         await message.channel.send('Anon names cannot be longer than 20 characters.')
                     else:
                         try:
