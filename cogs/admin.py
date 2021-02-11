@@ -48,13 +48,13 @@ class Admin(commands.Cog):
                     if not User.objects(discord_id=author_id):
                         create_user(author_id)
 
-                    if not User.objects(anon_name__exists=False):
+                    if not User.objects(discord_id=author_id, anon_name__exists=True):
                         await message.channel.send('Set your anon name first using the `*setname` command.')
                     else:
                         anon_name = get_anon_name(author_id)
                         starden_lobbychannel = self.bot.get_channel(Admin.starden_lobbychannel_id)
                         purrfect_message = message.content[10:]
-                        await starden_lobbychannel.send(f'{anon_name}: {purrfect_message}')
+                        await starden_lobbychannel.send(f'**{anon_name}**: {purrfect_message}')
                         await message.channel.send('<a:zzNekoAtsume_jump:804348020992507924>')
                         await message.channel.send('meowssage sent! purrfect!')
 
@@ -69,7 +69,7 @@ class Admin(commands.Cog):
                             await message.channel.send('Your anon name is already taken. Kagaya ni crush.')
                         except DoesNotExist:
                             add_anon_name(author_id, anon_name)
-                            await message.channel.send(f'Anon name set to {anon_name}')
+                            await message.channel.send(f'Anon name set to **{anon_name}**')
 
                 elif not message.author.bot:
                     user_name = message.author.name
