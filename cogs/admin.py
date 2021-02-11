@@ -11,6 +11,7 @@ class Admin(commands.Cog):
     starden_testchannel_id = 780701253280727040
     starden_voicechatchannel_id = 798943215008088155
     starden_genchannel_id = 758361018233126936
+    starden_lobbychannel_id = 807375880283619358
 
     @commands.Cog.listener()
     async def on_ready(self):
@@ -21,16 +22,27 @@ class Admin(commands.Cog):
         starden_server = self.bot.get_guild(Admin.starden_server_id)
         if not message.guild: # for solo dms
             if starden_server.get_member(message.author.id) is not None:
+
                 if message.content.startswith('*anon'):
                     starden_anonchannel = self.bot.get_channel(Admin.starden_anonchannel_id)
                     anon_message = message.content[6:]
                     await starden_anonchannel.send(f'**anon**: {anon_message}')
                     await message.channel.send(f'anon message successfully sent. you can now delete your DM.')
+
+                elif message.content.startswith('*purrfect'):
+                    starden_lobbychannel = self.bot.get_channel(Admin.starden_lobbychannel_id)
+                    purrfect_message = message.content
+                    await starden_lobbychannel.send(f'{purrfect_message}')
+                    await message.channel.send('<a:zzNekoAtsume_jump:804348020992507924>')
+                    await message.channel.send('meowssage sent! purrfect!')
+
                 elif not message.author.bot:
                     user_name = message.author.name
                     await message.channel.send(f'MUCH WOW {user_name.upper()}. TALK ME AT STARDENBURDENHARDENBART.')
+
             else:
                 await message.channel.send('...')
+
         if message.channel.id == Admin.starden_voicechatchannel_id:
             await asyncio.sleep(self.vc_delete_time)
             try:
