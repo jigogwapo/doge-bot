@@ -81,7 +81,8 @@ class Admin(commands.Cog):
                                     await message.channel.send(f'Anon name set to **{anon_name}**')
                                 else:
                                     await message.channel.send(f'Please wait {timediff.minutes} minutes and {timediff.seconds} seconds before setting a new anon name.')
-                            except:
+                            except Exception as ex:
+                                print(ex)
                                 add_anon_name(author_id, anon_name)
                                 await message.channel.send(f'Anon name set to **{anon_name}**')
 
