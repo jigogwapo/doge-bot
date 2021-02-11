@@ -21,6 +21,7 @@ class Admin(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         self.vc_delete_time = 1200
+        self.setname_cooldown_minutes = 5
 
     starden_server_id = 758361018233126932
     starden_anonchannel_id = 789854981981077514
@@ -28,6 +29,7 @@ class Admin(commands.Cog):
     starden_voicechatchannel_id = 798943215008088155
     starden_genchannel_id = 758361018233126936
     starden_lobbychannel_id = 807375880283619358
+
 
     @commands.Cog.listener()
     async def on_ready(self):
@@ -76,11 +78,12 @@ class Admin(commands.Cog):
                             author_user = User.objects(discord_id=author_id).get()
                             try:
                                 timediff = dt.datetime.now() - author_user.anon_set_time
-                                if timediff > dt.timedelta(minutes=5):
+                                cooldown = dt.timedelta(minutes=self.setname_cooldown_minutes)
+                                if timediff > cooldown:
                                     add_anon_name(author_id, anon_name)
                                     await message.channel.send(f'Anon name set to **{anon_name}**')
                                 else:
-                                    timeleft = dt.timedelta(minutes=5) - timediff
+                                    timeleft = cooldown - timediff
                                     num_minutes = timeleft // dt.timedelta(minutes=1)
                                     num_seconds = (timeleft % dt.timedelta(minutes=1)).seconds
                                     await message.channel.send(f'Please wait {num_minutes} minutes and {num_seconds} seconds before setting a new anon name.')
@@ -142,6 +145,15 @@ class Admin(commands.Cog):
         else:
             self.vc_delete_time = timeout
             await ctx.send(f'Changed auto-delete time to {self.vc_delete_time} seconds.')
+
+    @commands.command(brief='mod command to change set name cooldown')
+    @commands.has_any_role('Arbiter', 'Bot Meowster')
+    async def setnamecd(self, ctx, timeout: int = None):
+        if timeout is None:
+            await ctx.send(f'Current cooldown time is {self.setname_cooldown_minutes} minutes.')
+        else:
+            self.setname_cooldown_minutes = timeout
+            await ctx.send(f'Changed cooldown time to {self.setname_cooldown_minutes} minutes.')
 
     @deltime.error
     async def deltime_error(self, ctx, error):
