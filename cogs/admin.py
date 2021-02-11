@@ -148,7 +148,7 @@ class Admin(commands.Cog):
 
     @commands.command(brief='mod command to change set name cooldown')
     @commands.has_any_role('Arbiter', 'Bot Meowster')
-    async def setnamecd(self, ctx, timeout: int = None):
+    async def namecd(self, ctx, timeout: int = None):
         if timeout is None:
             await ctx.send(f'Current cooldown time is {self.setname_cooldown_minutes} minutes.')
         else:
