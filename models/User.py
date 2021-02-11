@@ -13,3 +13,4 @@ class User(Document):
     birthday = DateField()
     todos = ListField(EmbeddedDocumentField(Todo))
     anon_name = StringField(max_length=20)
+    anon_set_time = DateTimeField()

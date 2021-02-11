@@ -4,6 +4,7 @@ from mongoengine.errors import DoesNotExist
 from models.User import User
 from helpers.todo_helpers import create_user
 import asyncio
+import datetime as dt
 
 def get_anon_name(discord_id):
     user = User.objects(discord_id=discord_id).get()
@@ -11,7 +12,9 @@ def get_anon_name(discord_id):
 
 def add_anon_name(discord_id, anon_name):
     user = User.objects(discord_id=discord_id).get()
+    anon_set_time = dt.datetime.now()
     user.anon_name = anon_name
+    user.anon_set_time = anon_set_time
     user.save()
 
 class Admin(commands.Cog):
@@ -61,6 +64,8 @@ class Admin(commands.Cog):
                 elif message.content.startswith('*setname'):
                     author_id = message.author.id
                     anon_name = message.content[9:]
+                    if not User.objects(discord_id=author_id):
+                        create_user(author_id)
                     if len(anon_name) > 20:
                         await message.channel.send('Anon names cannot be longer than 20 characters.')
                     else:
@@ -68,8 +73,19 @@ class Admin(commands.Cog):
                             User.objects(anon_name=anon_name).get()
                             await message.channel.send('Your anon name is already taken. Kagaya ni crush.')
                         except DoesNotExist:
-                            add_anon_name(author_id, anon_name)
-                            await message.channel.send(f'Anon name set to **{anon_name}**')
+                            author_user = User.objects(discord_id=author_id).get()
+                            try:
+                                timediff = author_user.anon_set_time - dt.datetime.now()
+                                if timediff > dt.time(minute=5):
+                                    add_anon_name(author_id, anon_name)
+                                    await message.channel.send(f'Anon name set to **{anon_name}**')
+                                else:
+                                    await message.channel.send(f'Please wait {timediff.minutes} minutes and {timediff.seconds} seconds before setting a new anon name.')
+                            except:
+                                add_anon_name(author_id, anon_name)
+                                await message.channel.send(f'Anon name set to **{anon_name}**')
+
+
 
                 elif not message.author.bot:
                     user_name = message.author.name
