@@ -31,7 +31,7 @@ class Admin(commands.Cog):
 
                 elif message.content.startswith('*purrfect'):
                     starden_lobbychannel = self.bot.get_channel(Admin.starden_lobbychannel_id)
-                    purrfect_message = message.content
+                    purrfect_message = message.content[10:]
                     await starden_lobbychannel.send(f'{purrfect_message}')
                     await message.channel.send('<a:zzNekoAtsume_jump:804348020992507924>')
                     await message.channel.send('meowssage sent! purrfect!')
