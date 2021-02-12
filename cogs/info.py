@@ -58,8 +58,8 @@ class Info(commands.Cog):
             await bday_channel.send(content)
             await Info.post_bday_card(self, channel=bday_channel)
 
-    @commands.command(brief='save your birthday')
     @commands.before_invoke(record_usage)
+    @commands.command(brief='save your birthday')
     @commands.check(check_if_bday_channel)
     async def bday(self, ctx, *args):
         if len(args) != 2:
@@ -84,8 +84,8 @@ class Info(commands.Cog):
                     await ctx.send('That doesn\'t seem like a valid date.', delete_after=10)
         await ctx.message.delete(delay=5)
 
-    @commands.command(brief='display a list of birthdays')
     @commands.before_invoke(record_usage)
+    @commands.command(brief='display a list of birthdays')
     @commands.has_any_role('Arbiter', 'Bot Meowster')
     async def bdaylist(self, ctx):
         birthday_list = get_birthdays()
@@ -98,8 +98,8 @@ class Info(commands.Cog):
         message = await ctx.send(f'```{content}```')
         await add_delete_button(ctx, self.bot, message)
 
-    @commands.command(brief='display users with birthdays on a given day')
     @commands.before_invoke(record_usage)
+    @commands.command(brief='display users with birthdays on a given day')
     @commands.has_any_role('Arbiter', 'Bot Meowster')
     async def bdayon(self, ctx, *args):
         if len(args) != 2:
@@ -137,8 +137,8 @@ class Info(commands.Cog):
                 except:
                     await ctx.send('That doesn\'t seem like a valid date.')
 
-    @commands.command(brief='posts bday commands to #birthdays channel')
     @commands.before_invoke(record_usage)
+    @commands.command(brief='posts bday commands to #birthdays channel')
     @commands.has_any_role('Arbiter', 'Bot Meowster')
     async def bdayposthelp(self, ctx):
         bday_channel = self.bot.get_channel(Info.starden_bday_channel_id)
@@ -163,8 +163,8 @@ class Info(commands.Cog):
                 break
             await asyncio.sleep(10)
 
-    @commands.command(brief='displays first 20 (for now) members of a role', aliases=['sa'])
     @commands.before_invoke(record_usage)
+    @commands.command(brief='displays first 20 (for now) members of a role', aliases=['sa'])
     async def sinoang(self, ctx, *, role: discord.Role):
         pg_len = 20                     # items per page
         mem_len = len(role.members)     # total number of members

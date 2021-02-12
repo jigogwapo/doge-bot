@@ -43,8 +43,8 @@ class Quotes(commands.Cog):
                 break
             await asyncio.sleep(10)
 
-    @commands.command(brief='display a random quote', aliases=['q'])
     @commands.before_invoke(record_usage)
+    @commands.command(brief='display a random quote', aliases=['q'])
     async def quote(self, ctx, category : str = None):
 
         if category is None:
@@ -73,8 +73,8 @@ class Quotes(commands.Cog):
                 await ctx.send('No such category. Check list of categories with `*qcats`')
 
 
-    @commands.command(brief='display a list of quote categories', aliases=['qc'])
     @commands.before_invoke(record_usage)
+    @commands.command(brief='display a list of quote categories', aliases=['qc'])
     async def qcats(self, ctx):
         category_list = get_tag_list()
         content = 'Here\'s a list of quote categories:'

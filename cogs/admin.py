@@ -138,8 +138,8 @@ class Admin(commands.Cog):
             await starden_genchannel.send(''.join(tarodancers))
             await starden_genchannel.send(f'Welcome new ket {member.mention} to STARDENBURDENHARDENBART! I\'m Doge-bot. You can check out my commands by typing `*help`.')
 
-    @commands.command(brief='mod command to change vc auto-delete time', aliases=['dt'])
     @commands.before_invoke(record_usage)
+    @commands.command(brief='mod command to change vc auto-delete time', aliases=['dt'])
     @commands.has_any_role('Arbiter', 'Bot Meowster', 'Gatekeeper')
     async def deltime(self, ctx, timeout: int = None):
         if timeout is None:
@@ -148,8 +148,8 @@ class Admin(commands.Cog):
             self.vc_delete_time = timeout
             await ctx.send(f'Changed auto-delete time to {self.vc_delete_time} seconds.')
 
-    @commands.command(brief='mod command to change set name cooldown')
     @commands.before_invoke(record_usage)
+    @commands.command(brief='mod command to change set name cooldown')
     @commands.has_any_role('Arbiter', 'Bot Meowster', 'Gatekeeper')
     async def namecd(self, ctx, timeout: int = None):
         if timeout is None:

@@ -23,8 +23,8 @@ class Todo(commands.Cog):
         'Eto ang listahan mo, {}:\n'
     ]
 
-    @commands.group(brief='Show a list of your todos. Use *help td for subcommands.')
     @commands.before_invoke(record_usage)
+    @commands.group(brief='Show a list of your todos. Use *help td for subcommands.')
     async def td(self, ctx):
         if ctx.invoked_subcommand is None:
             discord_id = ctx.author.id
