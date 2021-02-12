@@ -2,12 +2,14 @@ import discord
 from discord.ext import commands
 from helpers.books_helpers import book_search, author_book_search
 from helpers.reaction_helpers import paginate
+from helpers.general_helpers import record_usage
 
 class Books(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
     @commands.command(brief='search for a book', aliases=['b'])
+    @commands.before_invoke(record_usage)
     async def book(self, ctx, *, book_name):
         book = book_search(book_name)
         if book is None:
@@ -19,6 +21,7 @@ class Books(commands.Cog):
             await ctx.send(embed=embed)
 
     @commands.command(brief='search for an author\'s top books', aliases=['ba', 'a'])
+    @commands.before_invoke(record_usage)
     async def author(self, ctx, *, author_name):
         author_books_list = author_book_search(author_name)
         if author_books_list is None:

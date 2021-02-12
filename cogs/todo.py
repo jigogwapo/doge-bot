@@ -1,6 +1,7 @@
 from discord.ext import commands
 import random
 from helpers.todo_helpers import add_todo, delete_all_todos, delete_todo, get_todos, create_user, set_all_done, set_todo_done
+from helpers.general_helpers import record_usage
 from models.User import User
 
 class Todo(commands.Cog):
@@ -23,6 +24,7 @@ class Todo(commands.Cog):
     ]
 
     @commands.group(brief='Show a list of your todos. Use *help td for subcommands.')
+    @commands.before_invoke(record_usage)
     async def td(self, ctx):
         if ctx.invoked_subcommand is None:
             discord_id = ctx.author.id

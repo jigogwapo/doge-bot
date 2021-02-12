@@ -5,6 +5,7 @@ from discord.ext import commands, tasks
 from helpers.reaction_helpers import paginate, add_delete_button
 from helpers.birthday_helpers import save_birthday, get_birthdays, get_birthdays_on, get_birthdays_today
 from helpers.todo_helpers import create_user
+from helpers.general_helpers import record_usage
 from models.User import User
 
 def check_if_bday_channel(ctx):
@@ -58,6 +59,7 @@ class Info(commands.Cog):
             await Info.post_bday_card(self, channel=bday_channel)
 
     @commands.command(brief='save your birthday')
+    @commands.before_invoke(record_usage)
     @commands.check(check_if_bday_channel)
     async def bday(self, ctx, *args):
         if len(args) != 2:
@@ -83,6 +85,7 @@ class Info(commands.Cog):
         await ctx.message.delete(delay=5)
 
     @commands.command(brief='display a list of birthdays')
+    @commands.before_invoke(record_usage)
     @commands.has_any_role('Arbiter', 'Bot Meowster')
     async def bdaylist(self, ctx):
         birthday_list = get_birthdays()
@@ -96,6 +99,7 @@ class Info(commands.Cog):
         await add_delete_button(ctx, self.bot, message)
 
     @commands.command(brief='display users with birthdays on a given day')
+    @commands.before_invoke(record_usage)
     @commands.has_any_role('Arbiter', 'Bot Meowster')
     async def bdayon(self, ctx, *args):
         if len(args) != 2:
@@ -134,6 +138,7 @@ class Info(commands.Cog):
                     await ctx.send('That doesn\'t seem like a valid date.')
 
     @commands.command(brief='posts bday commands to #birthdays channel')
+    @commands.before_invoke(record_usage)
     @commands.has_any_role('Arbiter', 'Bot Meowster')
     async def bdayposthelp(self, ctx):
         bday_channel = self.bot.get_channel(Info.starden_bday_channel_id)
@@ -159,6 +164,7 @@ class Info(commands.Cog):
             await asyncio.sleep(10)
 
     @commands.command(brief='displays first 20 (for now) members of a role', aliases=['sa'])
+    @commands.before_invoke(record_usage)
     async def sinoang(self, ctx, *, role: discord.Role):
         pg_len = 20                     # items per page
         mem_len = len(role.members)     # total number of members

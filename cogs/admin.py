@@ -3,6 +3,7 @@ from discord.utils import get
 from mongoengine.errors import DoesNotExist
 from models.User import User
 from helpers.todo_helpers import create_user
+from helpers.general_helpers import record_usage
 import asyncio
 import datetime as dt
 
@@ -138,7 +139,8 @@ class Admin(commands.Cog):
             await starden_genchannel.send(f'Welcome new ket {member.mention} to STARDENBURDENHARDENBART! I\'m Doge-bot. You can check out my commands by typing `*help`.')
 
     @commands.command(brief='mod command to change vc auto-delete time', aliases=['dt'])
-    @commands.has_any_role('Arbiter', 'Bot Meowster')
+    @commands.before_invoke(record_usage)
+    @commands.has_any_role('Arbiter', 'Bot Meowster', 'Gatekeeper')
     async def deltime(self, ctx, timeout: int = None):
         if timeout is None:
             await ctx.send(f'Current auto-delete time is {self.vc_delete_time} seconds.')
@@ -147,7 +149,8 @@ class Admin(commands.Cog):
             await ctx.send(f'Changed auto-delete time to {self.vc_delete_time} seconds.')
 
     @commands.command(brief='mod command to change set name cooldown')
-    @commands.has_any_role('Arbiter', 'Bot Meowster')
+    @commands.before_invoke(record_usage)
+    @commands.has_any_role('Arbiter', 'Bot Meowster', 'Gatekeeper')
     async def namecd(self, ctx, timeout: int = None):
         if timeout is None:
             await ctx.send(f'Current cooldown time is {self.setname_cooldown_minutes} minutes.')

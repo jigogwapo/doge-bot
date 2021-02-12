@@ -4,6 +4,7 @@ from discord.ext import commands, tasks
 from discord import Embed
 from random import choice
 from helpers.quotes_helpers import get_random_quote, get_tag_list, get_random_quote_with_tag, get_random_anime_quote
+from helpers.general_helpers import record_usage
 
 class Quotes(commands.Cog):
     def __init__(self, bot):
@@ -43,6 +44,7 @@ class Quotes(commands.Cog):
             await asyncio.sleep(10)
 
     @commands.command(brief='display a random quote', aliases=['q'])
+    @commands.before_invoke(record_usage)
     async def quote(self, ctx, category : str = None):
 
         if category is None:
@@ -72,6 +74,7 @@ class Quotes(commands.Cog):
 
 
     @commands.command(brief='display a list of quote categories', aliases=['qc'])
+    @commands.before_invoke(record_usage)
     async def qcats(self, ctx):
         category_list = get_tag_list()
         content = 'Here\'s a list of quote categories:'
