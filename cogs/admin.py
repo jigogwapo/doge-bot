@@ -28,7 +28,7 @@ class Admin(commands.Cog):
     starden_testchannel_id = 780701253280727040
     starden_voicechatchannel_id = 798943215008088155
     starden_genchannel_id = 758361018233126936
-    starden_lobbychannel_id = 807375880283619358
+    starden_lobbychannel_id = 809668669226352691
 
 
     @commands.Cog.listener()
