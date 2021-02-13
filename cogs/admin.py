@@ -18,6 +18,10 @@ def add_anon_name(discord_id, anon_name):
     user.anon_set_time = anon_set_time
     user.save()
 
+anonhelpstring = '''Commands for posting anonymous messages on <#789854981981077514>:
+`*anon <msg>` - post an anonymous message as **anon**
+`*sikret <msg>` - post a sikret message with a **sikret name**
+`*setname <sikretname>` - set a **sikretname**'''
 class Admin(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
@@ -164,6 +168,12 @@ class Admin(commands.Cog):
     async def deltime_error(self, ctx, error):
         if isinstance(error, commands.BadArgument):
             await ctx.send('Not a valid integer.')
+
+    @commands.command(brief='post help for anon message commands')
+    async def anonhelp(self, ctx):
+        await ctx.send(anonhelpstring)
+
+'''
 
 def setup(bot):
     bot.add_cog(Admin(bot))
