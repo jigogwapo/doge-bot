@@ -41,28 +41,30 @@ class Admin(commands.Cog):
         starden_server = self.bot.get_guild(Admin.starden_server_id)
         if not message.guild: # for solo dms
             if starden_server.get_member(message.author.id) is not None:
-
-                if message.content.startswith('*anon'):
-                    starden_anonchannel = self.bot.get_channel(Admin.starden_anonchannel_id)
-                    anon_message = message.content[6:]
-                    await starden_anonchannel.send(f'**anon**: {anon_message}')
-                    await message.channel.send(f'anon message successfully sent. you can now delete your DM.')
-
-                elif message.content.startswith('*purrfect'):
+                if message.content.startswith('*sikret'):
                     author_id = message.author.id
 
                     if not User.objects(discord_id=author_id):
                         create_user(author_id)
 
                     if not User.objects(discord_id=author_id, anon_name__exists=True):
+                        await message.channel.send('<:dogehuh:810023920178561024>')
                         await message.channel.send('Set your anon name first using the `*setname` command.')
                     else:
                         anon_name = get_anon_name(author_id)
-                        starden_lobbychannel = self.bot.get_channel(Admin.starden_lobbychannel_id)
+                        starden_anonchannel = self.bot.get_channel(Admin.starden_anonchannel_id)
                         purrfect_message = message.content[10:]
-                        await starden_lobbychannel.send(f'**{anon_name}**: {purrfect_message}')
-                        await message.channel.send('<a:zzNekoAtsume_jump:804348020992507924>')
-                        await message.channel.send('meowssage sent! purrfect!')
+                        await starden_anonchannel.send(f'**{anon_name}**: {purrfect_message}')
+                        await message.channel.send('<a:doge:788688516707385395>')
+                        await message.channel.send('message sent meowster!')
+
+                elif message.content.startswith('*anon'):
+                    starden_anonchannel = self.bot.get_channel(Admin.starden_anonchannel_id)
+                    anon_message = message.content[6:]
+                    await starden_anonchannel.send(f'**anon**: {anon_message}')
+                    await message.channel.send('<a:doge:788688516707385395>')
+                    await message.channel.send('meowssage sent meowster!')
+
 
                 elif message.content.startswith('*setname'):
                     author_id = message.author.id

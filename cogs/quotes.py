@@ -18,7 +18,7 @@ class Quotes(commands.Cog):
 
     @tasks.loop(hours=1)
     async def hourlyquote(self):
-        # isAnime = choice([True, False])
+        isAnime = choice([True, False])
         isAnime = False
         starden_genchannel = self.bot.get_channel(Quotes.starden_genchannel_id)
         if isAnime:

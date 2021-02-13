@@ -17,5 +17,6 @@ bot.load_extension('cogs.info')
 bot.load_extension('cogs.admin')
 bot.load_extension('cogs.quotes')
 bot.load_extension('cogs.todo')
+bot.load_extension('cogs.anime')
 
 bot.run(TOKEN)
