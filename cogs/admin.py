@@ -53,7 +53,7 @@ class Admin(commands.Cog):
                     else:
                         anon_name = get_anon_name(author_id)
                         starden_anonchannel = self.bot.get_channel(Admin.starden_anonchannel_id)
-                        purrfect_message = message.content[10:]
+                        purrfect_message = message.content[8:]
                         await starden_anonchannel.send(f'**{anon_name}**: {purrfect_message}')
                         await message.channel.send('<a:doge:788688516707385395>')
                         await message.channel.send('message sent meowster!')
