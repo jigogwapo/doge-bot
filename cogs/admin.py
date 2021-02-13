@@ -19,7 +19,7 @@ def add_anon_name(discord_id, anon_name):
     user.save()
 
 anonhelpstring = """DM these commands to <@796320516583063553> for posting anonymous messages on <#789854981981077514>:
-`*anon <msg>` - post an anonymous message as **anon**
+`>>> *anon <msg>` - post an anonymous message as **anon**
 `*sikret <msg>` - post a sikret message with a **sikret name**
 `*setname <sikretname>` - set a **sikretname**"""
 class Admin(commands.Cog):
@@ -172,8 +172,6 @@ class Admin(commands.Cog):
     @commands.command(brief='post help for anon message commands')
     async def anonhelp(self, ctx):
         await ctx.send(anonhelpstring)
-
-'''
 
 def setup(bot):
     bot.add_cog(Admin(bot))
