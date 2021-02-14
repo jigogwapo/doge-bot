@@ -12,7 +12,7 @@ class Anime(commands.Cog):
 
     @commands.command()
     @commands.dm_only()
-    async def postaotsunday(self):
+    async def postaotsunday(self, ctx):
         starden_genchannel = self.bot.get_channel(starden_genchannel_id)
         await starden_genchannel.send(aotsundayvid_link)
 
