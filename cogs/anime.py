@@ -26,12 +26,12 @@ class Anime(commands.Cog):
         for _ in range(7):
             timenow = dt.datetime.now()
             # check if Sunday
-            if timenow.weekday() == 0:
+            if timenow.weekday() == 6:
                 # loop every 10 seconds through 48 hours after Sunday
-                print('Detected that today is Monday. Starting 48-hr check loop.')
+                print('Detected that today is Sunday. Starting 48-hr check loop.')
                 for _ in range(6*60*48):
                     # check if current time is 6:00 AM
-                    if timenow.hour == 6 and timenow.minute == 0:
+                    if timenow.weekday() == 0 and timenow.hour == 6 and timenow.minute == 0:
                         print('Starting AOT Monday loop.')
                         break
                     await asyncio.sleep(10)
