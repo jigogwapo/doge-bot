@@ -10,6 +10,12 @@ class Anime(commands.Cog):
         self.bot = bot
         self.aotsunday.start()
 
+    @commands.command()
+    @commands.dm_only()
+    async def postaotsunday(self):
+        starden_genchannel = self.bot.get_channel(starden_genchannel_id)
+        await starden_genchannel.send(aotsundayvid_link)
+
     @tasks.loop(hours=24*7)
     async def aotsunday(self):
         starden_genchannel = self.bot.get_channel(starden_genchannel_id)
