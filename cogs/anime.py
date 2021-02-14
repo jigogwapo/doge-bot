@@ -26,8 +26,9 @@ class Anime(commands.Cog):
         for _ in range(7):
             timenow = dt.datetime.now()
             # check if Sunday
-            if timenow.weekday() == 6:
+            if timenow.weekday() == 0:
                 # loop every 10 seconds through 48 hours after Sunday
+                print('Detected that today is Monday. Starting 48-hr check loop.')
                 for _ in range(6*60*48):
                     # check if current time is 6:00 AM
                     if timenow.hour == 6 and timenow.minute == 0:
