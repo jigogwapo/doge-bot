@@ -1,4 +1,5 @@
 from discord.ext import commands
+import discord
 from discord.utils import get
 from mongoengine.errors import DoesNotExist
 from models.User import User
