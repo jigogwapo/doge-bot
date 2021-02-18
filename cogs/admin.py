@@ -39,6 +39,8 @@ class Admin(commands.Cog):
     @commands.Cog.listener()
     async def on_ready(self):
         print(f'Bot connected as {self.bot.user}')
+        await self.bot.change_presence(activity=discord.Game(name="Valheim"))
+
 
     @commands.Cog.listener()
     async def on_message(self, message):
