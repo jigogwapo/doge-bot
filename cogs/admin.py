@@ -41,7 +41,7 @@ class Admin(commands.Cog):
     @commands.Cog.listener()
     async def on_ready(self):
         print(f'Bot connected as {self.bot.user}')
-        await self.bot.change_presence(activity=discord.Streaming(name="Playing till I reach Valhalla", game="Valheim", url="https://www.youtube.com/watch?v=dQw4w9WgXcQ", platform='YouTube'))
+        await self.bot.change_presence(activity=discord.Streaming(platform="YouTube", name="Playing Valheim", game="Valheim", url="https://www.youtube.com/watch?v=dQw4w9WgXcQ"))
 
 
     @commands.Cog.listener()
