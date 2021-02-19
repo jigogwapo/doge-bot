@@ -151,22 +151,17 @@ class Admin(commands.Cog):
     async def on_member_remove(self, member):
         if member.guild.id == Admin.starden_server_id:
             starden_genchannel = self.bot.get_channel(Admin.starden_genchannel_id)
-            sad_emotes = [
-                '<:peepo_sad:760424879978709012>',
-                '<:ztarden_cat_itsoKet:760341632381485057>',
-                '<:ztarden_cat_surprizeKet:761723164702933013>',
-                '<:wtfpain:764528591618310154>',
-                '<a:pepe_cri:788706202108428323>',
-                '<a:kawaii_UmaruChanCrying:788688980899004446>'
-             ]
-            sad_quotes = [
-                 '> Huhu iniwan na tayo ni **{mem_name}**. Pls com bak.',
-                 '> Tch! **{mem_name}** just left the server.',
-                 '> Bat mo kami iniwan, **{mem_name}**?',
-                 '> Iniwan tayo ni **{mem_name}** kagaya nung pagiwan sayo ng ex mo.'
-             ]
-            await starden_genchannel.send(random.choice(sad_emotes))
-            await starden_genchannel.send(random.choice(sad_quotes).format(mem_name=member.display_name))
+            sad_list = [
+                ('<:peepo_sad:760424879978709012>', '> Huhu iniwan na tayo ni **{mem_name}**. Pls com bak.'),
+                ('<:wtfpain:764528591618310154>', '> Tch! **{mem_name}** just left the server.'),
+                ('<:ztarden_cat_itsoKet:760341632381485057>', '> Ok lang kahit iniwan mo kami **{mem_name}**, sanay na akong iniiwan.'),
+                ('<a:pepe_cri:788706202108428323>', '> Bat mo kami iniwan, **{mem_name}**?'),
+                ('<:wtfpain:764528591618310154>', '> Iniwan tayo ni **{mem_name}** kagaya nung pagiwan sayo ng ex mo.'),
+                ('<:starden_krisbecause:807887523506421810>', '> So iniwan na pala tayo ni **{mem_name}**, BECAUSE?')
+            ]
+            sad_emote, sad_quote = random.choice(sad_list)
+            await starden_genchannel.send(sad_emote)
+            await starden_genchannel.send(sad_quote)
 
     @commands.before_invoke(record_usage)
     @commands.command(brief='mod command to change vc auto-delete time', aliases=['dt'])
