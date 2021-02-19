@@ -161,7 +161,7 @@ class Admin(commands.Cog):
             ]
             sad_emote, sad_quote = random.choice(sad_list)
             await starden_genchannel.send(sad_emote)
-            await starden_genchannel.send(sad_quote)
+            await starden_genchannel.send(sad_quote.format(mem_name=member.display_name))
 
     @commands.before_invoke(record_usage)
     @commands.command(brief='mod command to change vc auto-delete time', aliases=['dt'])
