@@ -160,10 +160,10 @@ class Admin(commands.Cog):
                 '<a:kawaii_UmaruChanCrying:788688980899004446>'
              ]
             sad_quotes = [
-                 'Huhu iniwan na tayo ni **{mem_name}**. Pls com bak.',
-                 'Tch! **{mem_name}** just left the server.',
-                 'Bat mo kami iniwan, **{mem_name}**?',
-                 'Iniwan tayo ni **{mem_name}** kagaya nung pagiwan sayo ng ex mo.'
+                 '> Huhu iniwan na tayo ni **{mem_name}**. Pls com bak.',
+                 '> Tch! **{mem_name}** just left the server.',
+                 '> Bat mo kami iniwan, **{mem_name}**?',
+                 '> Iniwan tayo ni **{mem_name}** kagaya nung pagiwan sayo ng ex mo.'
              ]
             await starden_genchannel.send(random.choice(sad_emotes))
             await starden_genchannel.send(random.choice(sad_quotes).format(mem_name=member.display_name))
