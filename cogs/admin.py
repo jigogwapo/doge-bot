@@ -1,6 +1,7 @@
 from discord.ext import commands
 import discord
 from discord.utils import get
+import random
 from mongoengine.errors import DoesNotExist
 from models.User import User
 from helpers.todo_helpers import create_user
@@ -146,6 +147,27 @@ class Admin(commands.Cog):
             ]
             await starden_genchannel.send(''.join(tarodancers))
             await starden_genchannel.send(f'Welcome new ket {member.mention} to STARDENBURDENHARDENBART! I\'m Doge-bot. You can check out my commands by typing `*help`.')
+
+    @commands.Cog.listener()
+    async def on_member_remove(self, member):
+        if member.guild.id == Admin.starden_server_id:
+            starden_genchannel = self.bot.get_channel(Admin.starden_genchannel_id)
+            sad_emotes = [
+                '<:peepo_sad:760424879978709012>',
+                '<:ztarden_cat_itsoKet:760341632381485057>',
+                '<:ztarden_cat_surprizeKet:761723164702933013>',
+                '<:wtfpain:764528591618310154>',
+                '<a:pepe_cri:788706202108428323>',
+                '<a:kawaii_UmaruChanCrying:788688980899004446>'
+             ]
+            sad_quotes = [
+                 'Huhu iniwan na tayo ni **{mem_name}**. Pls com bak.',
+                 'Tch! **{mem_name}** just left the server.',
+                 'Bat mo kami iniwan, **{mem_name}**?',
+                 'Iniwan tayo ni **{mem_name}** kagaya nung pagiwan sayo ng ex mo.'
+             ]
+            await starden_genchannel.send(random.choice(sad_emotes))
+            await starden_genchannel.send(random.choice(sad_quotes).format(mem_name=member.display_name))
 
     @commands.before_invoke(record_usage)
     @commands.command(brief='mod command to change vc auto-delete time', aliases=['dt'])
