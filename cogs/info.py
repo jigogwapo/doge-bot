@@ -86,15 +86,18 @@ class Info(commands.Cog):
 
     @commands.before_invoke(record_usage)
     @commands.command(brief='display a list of birthdays')
-    @commands.has_any_role('Arbiter', 'Bot Meowster')
+    # @commands.has_any_role('Arbiter', 'Bot Meowster')
     async def bdaylist(self, ctx):
         birthday_list = get_birthdays()
         content = 'Here\'s a list of birthdays:'
-        starden_guiild = self.bot.get_guild(Info.starden_guild_id)
+        starden_guild = self.bot.get_guild(Info.starden_guild_id)
         for user in birthday_list:
-            user_name = starden_guiild.get_member(user.discord_id).display_name
-            bdaystring = f'{user.birthday.strftime("%B")} {user.birthday.day}'
-            content += f'\n{bdaystring} - {user_name}'
+            try:
+                user_name = starden_guild.get_member(user.discord_id).display_name
+                bdaystring = f'{user.birthday.strftime("%B")} {user.birthday.day}'
+                content += f'\n{bdaystring} - {user_name}'
+            except:
+                pass
         message = await ctx.send(f'```{content}```')
         await add_delete_button(ctx, self.bot, message)
 
