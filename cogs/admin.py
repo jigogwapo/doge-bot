@@ -163,7 +163,7 @@ class Admin(commands.Cog):
                 ('<:ztarden_cat_itsoKet:760341632381485057>', '> Ok lang kahit iniwan mo kami **{mem_name}**, sanay na akong iniiwan.'),
                 ('<a:pepe_cri:788706202108428323>', '> Bat mo kami iniwan, **{mem_name}**?'),
                 ('<:wtfpain:764528591618310154>', '> Iniwan tayo ni **{mem_name}** kagaya nung pagiwan sayo ng ex mo.'),
-                ('<:starden_krisbecause:807887523506421810>', '> So iniwan na pala tayo ni **{mem_name}**, BECAUSE?')
+                # ('<:starden_krisbecause:807887523506421810>', '> So iniwan na pala tayo ni **{mem_name}**, BECAUSE?')
             ]
             sad_emote, sad_quote = random.choice(sad_list)
             await starden_genchannel.send(sad_emote)
