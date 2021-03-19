@@ -130,22 +130,28 @@ class Admin(commands.Cog):
     async def on_member_join(self, member):
         if member.guild.id == Admin.starden_server_id:
             starden_genchannel = self.bot.get_channel(Admin.starden_genchannel_id)
-            # tarodancers = [
-            #     '<a:doge:788688516707385395>',
-            #     '<a:ztarden_TaroDanceSam:800943071545655346>',
-            #     '<a:ztarden_TaroDanceCarrie:800952631165059122>',
-            #     '<a:ztarden_TaroDanceErn:800954713113493514>'
-            #     '<a:ztarden_TaroDancePrei:800947555210756136>',
-            #     '<a:ztarden_TaroDanceManny:800947552458768425>',
-            #     '<a:ztarden_JujuTaroDance:801241457474142228>'
-            #     '<a:ztarden_TaroDanceKing:801239042012086283>',
-            #     '<a:ztarden_TaroDanceGold:800950085344952352>',
-            #     '<a:ztarden_TaroDanceGeros:801239041625686037>',
-            #     '<a:ztarden_TaroDanceElder:801239041701052426>',
-            #     '<a:doge_dance:788688533451178004>'
-            # ]
-            # await starden_genchannel.send(''.join(tarodancers))
-            await starden_genchannel.send(f'Welcome new ket {member.mention} to STARDENBURDENHARDENBART! I\'m Doge-bot. Get your roles at <#759026724825595934> and <#793331191666704454>. You can also check out my commands by typing `*help`.')
+            tarodancers = [
+                # '<a:doge:788688516707385395>',
+                # '<a:ztarden_TaroDanceSam:800943071545655346>',
+                # '<a:ztarden_TaroDanceCarrie:800952631165059122>',
+                # '<a:ztarden_TaroDanceErn:800954713113493514>'
+                # '<a:ztarden_TaroDancePrei:800947555210756136>',
+                # '<a:ztarden_TaroDanceManny:800947552458768425>',
+                # '<a:ztarden_JujuTaroDance:801241457474142228>'
+                # '<a:ztarden_TaroDanceKing:801239042012086283>',
+                # '<a:ztarden_TaroDanceGold:800950085344952352>',
+                # '<a:ztarden_TaroDanceGeros:801239041625686037>',
+                # '<a:ztarden_TaroDanceElder:801239041701052426>',
+                '<a:doge_dance:788688533451178004>'
+            ]
+            await starden_genchannel.send(random.choice(tarodancers))
+            message_list = [
+                'Welcome new ket {mem_name} to STARDENBURDENHARDENBART!',
+                'WHOOOO NEW MEMBER! Welcome {mem_name} to STARDENBURDENHARDENBART!',
+                'Thanks for joining STARDENBURDENHARDENBART, {mem_name}!'
+            ]
+            await starden_genchannel.send(random.choice(message_list).format(mem_name=member.mention))
+            await starden_genchannel.send('Get your roles at <#759026724825595934> and <#793331191666704454>. You can also check out my commands by typing `*help`.')
 
     @commands.Cog.listener()
     async def on_member_remove(self, member):
