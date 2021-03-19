@@ -24,7 +24,7 @@ class Todo(commands.Cog):
     ]
 
     @commands.before_invoke(record_usage)
-    @commands.group(brief='Show a list of your todos. Use *help td for subcommands.')
+    @commands.group(brief='Show a list of your todos. Use *help td for subcommands.', aliases= ['todo'])
     async def td(self, ctx):
         if ctx.invoked_subcommand is None:
             discord_id = ctx.author.id
