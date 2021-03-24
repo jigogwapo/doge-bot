@@ -153,21 +153,21 @@ class Admin(commands.Cog):
             await starden_genchannel.send(random.choice(message_list).format(mem_name=member.mention))
             await starden_genchannel.send('Get your roles at <#759026724825595934> and <#793331191666704454>. You can also check out my commands by typing `*help`.')
 
-    @commands.Cog.listener()
-    async def on_member_remove(self, member):
-        if member.guild.id == Admin.starden_server_id:
-            starden_genchannel = self.bot.get_channel(Admin.starden_genchannel_id)
-            sad_list = [
-                ('<:peepo_sad:760424879978709012>', '> Huhu iniwan na tayo ni **{mem_name}**. Pls com bak.'),
-                ('<:wtfpain:764528591618310154>', '> Tch! **{mem_name}** just left the server.'),
-                ('<:ztarden_cat_itsoKet:760341632381485057>', '> Ok lang kahit iniwan mo kami **{mem_name}**, sanay na akong iniiwan.'),
-                ('<a:pepe_cri:788706202108428323>', '> Bat mo kami iniwan, **{mem_name}**?'),
-                ('<:wtfpain:764528591618310154>', '> Iniwan tayo ni **{mem_name}** kagaya nung pagiwan sayo ng ex mo.'),
-                # ('<:starden_krisbecause:807887523506421810>', '> So iniwan na pala tayo ni **{mem_name}**, BECAUSE?')
-            ]
-            sad_emote, sad_quote = random.choice(sad_list)
-            await starden_genchannel.send(sad_emote)
-            await starden_genchannel.send(sad_quote.format(mem_name=member.display_name))
+    # @commands.Cog.listener()
+    # async def on_member_remove(self, member):
+    #     if member.guild.id == Admin.starden_server_id:
+    #         starden_genchannel = self.bot.get_channel(Admin.starden_genchannel_id)
+    #         sad_list = [
+    #             ('<:peepo_sad:760424879978709012>', '> Huhu iniwan na tayo ni **{mem_name}**. Pls com bak.'),
+    #             ('<:wtfpain:764528591618310154>', '> Tch! **{mem_name}** just left the server.'),
+    #             ('<:ztarden_cat_itsoKet:760341632381485057>', '> Ok lang kahit iniwan mo kami **{mem_name}**, sanay na akong iniiwan.'),
+    #             ('<a:pepe_cri:788706202108428323>', '> Bat mo kami iniwan, **{mem_name}**?'),
+    #             ('<:wtfpain:764528591618310154>', '> Iniwan tayo ni **{mem_name}** kagaya nung pagiwan sayo ng ex mo.'),
+    #             # ('<:starden_krisbecause:807887523506421810>', '> So iniwan na pala tayo ni **{mem_name}**, BECAUSE?')
+    #         ]
+    #         sad_emote, sad_quote = random.choice(sad_list)
+    #         await starden_genchannel.send(sad_emote)
+    #         await starden_genchannel.send(sad_quote.format(mem_name=member.display_name))
 
     @commands.before_invoke(record_usage)
     @commands.command(brief='mod command to change vc auto-delete time', aliases=['dt'])

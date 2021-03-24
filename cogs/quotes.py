@@ -16,7 +16,7 @@ class Quotes(commands.Cog):
 
     starden_genchannel_id = 758361018233126936
 
-    @tasks.loop(hours=1)
+    @tasks.loop(hours=6)
     async def hourlyquote(self):
         isAnime = choice([True, False])
         isAnime = False
