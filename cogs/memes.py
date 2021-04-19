@@ -50,6 +50,11 @@ class Memes(commands.Cog):
         await ctx.send('My goodnessssss\nWe need to delete this server asap')
 
     @commands.before_invoke(record_usage)
+    @commands.command(brief='anything for u bb')
+    async def wisn(self, ctx, *args):
+        await ctx.send('*anything 4 u bb*')
+
+    @commands.before_invoke(record_usage)
     @commands.command(brief='for saying you\'re chararat')
     async def chararat(self, ctx, *args):
         if len(args) == 0:
