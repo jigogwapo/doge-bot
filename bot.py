@@ -1,6 +1,7 @@
 import os, discord
 import discord.ext.commands as commands
 from mongoengine import connect
+from helpers.custom_text_helpers import get_commands
 intents = discord.Intents.all()
 
 TOKEN = os.getenv("DISCORD_BOT_TOKEN")
@@ -18,5 +19,16 @@ bot.load_extension('cogs.admin')
 bot.load_extension('cogs.quotes')
 bot.load_extension('cogs.todo')
 bot.load_extension('cogs.anime')
+bot.load_extension('cogs.customtext')
+
+custom_command_list = get_commands()
+for command in custom_command_list:
+    @commands.command(name=command.command_text)
+    async def foo(ctx):
+        await ctx.send(command.custom_text)
+    try:
+        bot.add_command(foo)
+    except:
+        pass
 
 bot.run(TOKEN)
