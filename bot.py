@@ -25,13 +25,9 @@ custom_command_list = get_commands()
 for command in custom_command_list:
     print(f'Command: {command.command_text}')
     print(f'Text: {command.custom_text}')
-    @commands.command(name=command.command_text)
+
+    @bot.command(name=command.command_text)
     async def foo(ctx):
         await ctx.send(command.custom_text)
-    try:
-        bot.add_command(foo)
-    except Exception as e:
-        print(e)
-        pass
 
 bot.run(TOKEN)
