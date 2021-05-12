@@ -30,7 +30,8 @@ for command in custom_command_list:
         await ctx.send(command.custom_text)
     try:
         bot.add_command(foo)
-    except:
+    except Exception as e:
+        print(e)
         pass
 
 bot.run(TOKEN)
