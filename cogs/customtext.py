@@ -7,7 +7,7 @@ class CustomText(commands.Cog):
         self.bot = bot
 
     @commands.command()
-    @commands.has_any_role('Arbiter', 'Bot Meowster', 'Gatekeeper')
+    @commands.has_any_role('Arbiter', 'Bot Meowster', 'Gatekeeper', 'Ambassador')
     async def addcommand(self, ctx, arg):
         await ctx.send(f'Please enter the custom text for the `{arg}` command:')
 
@@ -23,7 +23,7 @@ class CustomText(commands.Cog):
         await ctx.send(f'Successfully added `{arg}` command.')
 
     @commands.command()
-    @commands.has_any_role('Arbiter', 'Bot Meowster', 'Gatekeeper')
+    @commands.has_any_role('Arbiter', 'Bot Meowster', 'Gatekeeper', 'Ambassador')
     async def editcommand(self, ctx, arg):
         await ctx.send(f'Please enter the new custom text for the `{arg}` command:')
 
