@@ -144,14 +144,14 @@ class Admin(commands.Cog):
                 # '<a:ztarden_TaroDanceElder:801239041701052426>',
                 '<a:doge_dance:788688533451178004>'
             ]
-            await starden_genchannel.send(random.choice(tarodancers))
+            # await starden_genchannel.send(random.choice(tarodancers))
             message_list = [
                 'Welcome new ket {mem_name} to STARDENBURDENHARDENBART!',
                 'WHOOOO NEW MEMBER! Welcome {mem_name} to STARDENBURDENHARDENBART!',
                 'Thanks for joining STARDENBURDENHARDENBART, {mem_name}!'
             ]
             await starden_genchannel.send(random.choice(message_list).format(mem_name=member.mention))
-            await starden_genchannel.send('Get your roles at <#759026724825595934> and <#793331191666704454>. You can also check out my commands by typing `*help`.')
+            await starden_genchannel.send('Get your roles at <#759026724825595934> and <#793331191666704454>. You can also check out my commands by typing `*help` in <#758547575438704640>.')
 
     # @commands.Cog.listener()
     # async def on_member_remove(self, member):
