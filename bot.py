@@ -32,4 +32,14 @@ def foo_factory(command):
 for command in custom_command_list:
     bot.add_command(foo_factory(command))
 
+class MyHelpCommand(commands.MinimalHelpCommand):
+    async def send_pages(self):
+        destination = self.get_destination()
+        e = discord.Embed(color=discord.Color.blurple(), description='')
+        for page in self.paginator.pages:
+            e.description += page
+        await destination.send(embed=e)
+
+bot.help_command = MyHelpCommand()
+
 bot.run(TOKEN)
