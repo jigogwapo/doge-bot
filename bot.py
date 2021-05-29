@@ -32,6 +32,9 @@ def foo_factory(command):
 for command in custom_command_list:
     bot.add_command(foo_factory(command))
 
+async def is_in_botcommands(ctx):
+    return ctx.channel.id == 758547575438704640
+
 class MyHelpCommand(commands.MinimalHelpCommand):
     async def send_pages(self):
         destination = self.get_destination()
@@ -40,6 +43,9 @@ class MyHelpCommand(commands.MinimalHelpCommand):
             e.description += page
         await destination.send(embed=e)
 
-bot.help_command = MyHelpCommand()
+custom_help = MyHelpCommand()
+custom_help.add_check(is_in_botcommands)
+
+bot.help_command = custom_help
 
 bot.run(TOKEN)
