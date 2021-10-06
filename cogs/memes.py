@@ -1,7 +1,7 @@
 from discord.ext import commands
 from discord import Embed
 from helpers.jeje import jejenizer
-from helpers.general_helpers import record_usage
+from helpers.general_helpers import record_usage, get_random_question
 from helpers.dadjoke_helpers import get_random_dadjoke
 
 def no_everyone_here(text):
@@ -113,6 +113,14 @@ class Memes(commands.Cog):
     async def dadjoke(self, ctx, *args):
         dadjoke = get_random_dadjoke()
         embed = Embed(description=dadjoke)
+        embed.set_thumbnail(url='https://i.imgur.com/HeGEEbu.jpg')
+        await ctx.send(embed=embed)
+
+    @commands.before_invoke(record_usage)
+    @commands.command(brief='get a random question')
+    async def smalltalk(self, ctx, *args):
+        question = get_random_question()
+        embed = Embed(description=question)
         embed.set_thumbnail(url='https://i.imgur.com/HeGEEbu.jpg')
         await ctx.send(embed=embed)
 
