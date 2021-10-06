@@ -1,6 +1,7 @@
 from discord.ext import commands
 from helpers.jeje import jejenizer
 from helpers.general_helpers import record_usage
+from helpers.dadjoke_helpers import get_random_dadjoke
 
 def no_everyone_here(text):
     return text.replace('@everyone', '[REDACTED]').replace('@here', '[REDACTED]')
@@ -105,6 +106,11 @@ class Memes(commands.Cog):
             input_text = ' '.join(args)
             jeje_text = jejenizer(input_text)
             await ctx.send(jeje_text)
+
+    @commands.before_invoke(record_usage)
+    @commands.command(brief='get a random dad joke')
+    async def dadjoke(self, ctx, *args):
+        await ctx.send(get_random_dadjoke())
 
 def setup(bot):
     bot.add_cog(Memes(bot))
