@@ -120,7 +120,7 @@ class Admin(commands.Cog):
 
         if message.reference is not None:
             author_roles = [role.name for role in message.author.roles]
-            if message.reference.resolved.author.id == self.bot.user.id and "Green Teamer" in author_roles:
+            if message.reference.resolved.author.id == self.bot.user.id and "Bot Meowster" in author_roles:
                 if message.content.upper().startswith(('DELETE', 'SHUT UP', 'SILENCE', 'TAHIMIK', 'TUMAHIMIK', 'HIPOS')):
                     await message.add_reaction('👍')
                     await message.channel.send('YES BOT MEOWSTER', delete_after=5)
