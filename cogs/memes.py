@@ -1,4 +1,5 @@
 from discord.ext import commands
+from discord import Embed
 from helpers.jeje import jejenizer
 from helpers.general_helpers import record_usage
 from helpers.dadjoke_helpers import get_random_dadjoke
@@ -110,7 +111,10 @@ class Memes(commands.Cog):
     @commands.before_invoke(record_usage)
     @commands.command(brief='get a random dad joke')
     async def dadjoke(self, ctx, *args):
-        await ctx.send(get_random_dadjoke())
+        dadjoke = get_random_dadjoke()
+        embed = Embed(description=dadjoke)
+        embed.set_thumbnail(url='https://i.imgur.com/HeGEEbu.jpg')
+        await ctx.send(embed=embed)
 
 def setup(bot):
     bot.add_cog(Memes(bot))
