@@ -2,7 +2,7 @@ from discord.ext import commands
 from discord import Embed
 from helpers.jeje import jejenizer
 from helpers.general_helpers import record_usage, get_random_question
-from helpers.dadjoke_helpers import get_random_dadjoke
+from helpers.api_helpers import get_random_dadjoke, get_catfact
 
 def no_everyone_here(text):
     return text.replace('@everyone', '[REDACTED]').replace('@here', '[REDACTED]')
@@ -113,6 +113,14 @@ class Memes(commands.Cog):
     async def dadjoke(self, ctx, *args):
         dadjoke = get_random_dadjoke()
         embed = Embed(description=dadjoke)
+        embed.set_thumbnail(url='https://i.imgur.com/HeGEEbu.jpg')
+        await ctx.send(embed=embed)
+
+    @commands.before_invoke(record_usage)
+    @commands.command(brief='get a random cat fact')
+    async def catfact(self, ctx, *args):
+        catfact = get_catfact()
+        embed = Embed(description=catfact,title="Did you know?")
         embed.set_thumbnail(url='https://i.imgur.com/HeGEEbu.jpg')
         await ctx.send(embed=embed)
 
