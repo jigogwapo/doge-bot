@@ -43,18 +43,22 @@ class Wordle(commands.Cog):
     @commands.group(brief='Play Wordle')
     async def wordle(self, ctx):
         answer = choice(word_list)
-        await ctx.send("Enter your first guess.")
+        await ctx.send("Enter your first guess by typing `wordle <guess>`. You can quit any time by typing `wordle quit`")
         print(f'{ctx.author}\'s Wordle game: Correct word is {answer}')
         def check(message):
-            return message.author == ctx.author and message.channel == ctx.channel
+            return message.author == ctx.author and message.channel == ctx.channel and message.content.startswith("wordle ")
 
         i = 0
         while i < 6:
             guess = await self.bot.wait_for("message", check=check)
-            if guess.content.lower() == "quit":
+
+            guessword = guess.content[7:]
+
+            if guessword.lower() == "quit":
                 await ctx.send('You just quit Wordle.')
                 break
-            res = wordle_check(guess.content, answer)
+
+            res = wordle_check(guessword, answer)
             await ctx.send(res["message"])
 
             if res["code"] == "correct":
