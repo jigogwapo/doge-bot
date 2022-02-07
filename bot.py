@@ -10,7 +10,7 @@ mongodb_uri = os.getenv('MONGODB_URI')
 connect('starden', host=mongodb_uri)
 print('Connected to database.')
 
-bot = commands.Bot(command_prefix='*', intents=intents)
+bot = commands.Bot(command_prefix='*', activity=discord.Game(name='MONSTER HUNTER RISE'), intents=intents)
 
 bot.load_extension('cogs.memes')
 bot.load_extension('cogs.books')
