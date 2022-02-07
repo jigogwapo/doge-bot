@@ -9,6 +9,8 @@ def wordle_check(guess, answer):
     square = {1: "🟩", 2: "🟨", 0: "⬜"}
     guess = guess.lower()
     guess_check_list = [0,0,0,0,0]
+    reduced_answer = list(answer)
+    reduced_guess = list(guess)
 
     if len(guess) != 5:
         code="error_length"
@@ -20,10 +22,17 @@ def wordle_check(guess, answer):
         for i, letter in enumerate(guess):
             if letter == answer[i]:
                 guess_check_list[i] = 1
-            elif letter in answer:
-                guess_check_list[i] = 2
+                reduced_answer[i] = " "
+                reduced_guess[i] = " "
             else:
                 guess_check_list[i] = 0
+        
+        for i, letter in enumerate(reduced_guess):
+            if letter == " ":
+                continue
+            elif letter in reduced_answer:
+                guess_check_list[i] = 2
+                reduced_answer[i] = " "
         
         message = " ".join([square[key] for key in guess_check_list])
 
@@ -59,6 +68,7 @@ class Wordle(commands.Cog):
                 break
 
             res = wordle_check(guessword, answer)
+            # res = wordle_check(guessword, "gotta")
             await ctx.send(res["message"])
 
             if res["code"] == "correct":
