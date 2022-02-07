@@ -20,7 +20,7 @@ def wordle_check(guess, answer):
         for i, letter in enumerate(guess):
             if letter == answer[i]:
                 guess_check_list[i] = 1
-            elif letter in answer[i:]:
+            elif letter in answer:
                 guess_check_list[i] = 2
             else:
                 guess_check_list[i] = 0
