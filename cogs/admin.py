@@ -41,7 +41,7 @@ class Admin(commands.Cog):
     @commands.Cog.listener()
     async def on_ready(self):
         print(f'Bot connected as {self.bot.user}')
-        await self.bot.change_presence(activity=discord.Streaming(name='Daft Punk', url="https://www.youtube.com/watch?v=DuDX6wNfjqc", details="Daft Punk"))
+        await self.bot.change_presence(activity=discord.Game(name='MONSTER HUNTER RISE'))
 
     @commands.Cog.listener()
     async def on_message(self, message):
