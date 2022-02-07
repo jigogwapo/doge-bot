@@ -24,15 +24,14 @@ def wordle_check(guess, answer):
                 guess_check_list[i] = 1
                 reduced_answer[i] = " "
                 reduced_guess[i] = " "
-            else:
-                guess_check_list[i] = 0
-        
+
         for i, letter in enumerate(reduced_guess):
             if letter == " ":
                 continue
             elif letter in reduced_answer:
                 guess_check_list[i] = 2
-                reduced_answer[i] = " "
+                h = reduced_answer.index(letter)
+                reduced_answer[h] = " "
         
         message = " ".join([square[key] for key in guess_check_list])
 
@@ -68,7 +67,7 @@ class Wordle(commands.Cog):
                 break
 
             res = wordle_check(guessword, answer)
-            # res = wordle_check(guessword, "gotta")
+
             await ctx.send(res["message"])
 
             if res["code"] == "correct":
