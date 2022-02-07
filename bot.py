@@ -20,7 +20,7 @@ bot.load_extension('cogs.quotes')
 bot.load_extension('cogs.todo')
 bot.load_extension('cogs.anime')
 bot.load_extension('cogs.customtext')
-bot.load_extension('cogs.wordle')
+# bot.load_extension('cogs.wordle')
 
 custom_command_list = get_commands()
 
