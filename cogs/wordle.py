@@ -51,6 +51,9 @@ class Wordle(commands.Cog):
         i = 0
         while i < 6:
             guess = await self.bot.wait_for("message", check=check)
+            if guess.content.lower() == "quit":
+                await ctx.send('You just quit Wordle.')
+                break
             res = wordle_check(guess.content, answer)
             await ctx.send(res["message"])
 
@@ -65,6 +68,7 @@ class Wordle(commands.Cog):
                     await ctx.send(f'Please enter another guess. ({i+1}/6)')
                 else:
                     await ctx.send(f'You have run out of tries. The correct word was {answer}.')
+            i = i+1
         
         print(f'{ctx.author}\'s Wordle game has ended.')
 
