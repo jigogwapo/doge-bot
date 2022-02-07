@@ -48,7 +48,8 @@ class Wordle(commands.Cog):
         def check(message):
             return message.author == ctx.author and message.channel == ctx.channel
 
-        for i in range(6):
+        i = 0
+        while i < 6:
             guess = await self.bot.wait_for("message", check=check)
             res = wordle_check(guess.content, answer)
             await ctx.send(res["message"])
