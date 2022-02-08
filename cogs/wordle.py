@@ -63,7 +63,7 @@ class Wordle(commands.Cog):
             guessword = guess.content[7:]
 
             if guessword.lower() == "quit":
-                await ctx.send('You just quit Wordle.')
+                await ctx.send(f'You just quit Wordle. The correct word was {answer}.')
                 break
 
             res = wordle_check(guessword, answer)
