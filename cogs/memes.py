@@ -120,7 +120,7 @@ class Memes(commands.Cog):
     @commands.command(brief='get a random cat fact')
     async def catfact(self, ctx, *args):
         catfact = get_catfact()
-        embed = Embed(description=catfact,title="Did you know?")
+        embed = Embed(description=catfact,title="Cat Fact:")
         embed.set_thumbnail(url='https://i.imgur.com/HeGEEbu.jpg')
         await ctx.send(embed=embed)
 
