@@ -1,4 +1,5 @@
 from discord.ext import commands
+from discord import Embed
 import discord
 from discord.utils import get
 import random
@@ -144,13 +145,16 @@ class Admin(commands.Cog):
                 '<a:doge_dance:788688533451178004>'
             ]
             # await starden_genchannel.send(random.choice(tarodancers))
-            message_list = [
+            message_begin_list = [
                 'Welcome new ket {mem_name} to STARDENBURDENHARDENBART!',
                 'WHOOOO NEW MEMBER! Welcome {mem_name} to STARDENBURDENHARDENBART!',
                 'Thanks for joining STARDENBURDENHARDENBART, {mem_name}!'
             ]
-            await starden_genchannel.send(random.choice(message_list).format(mem_name=member.mention))
-            await starden_genchannel.send('Get your roles at <#759026724825595934> and <#793331191666704454>. You can also check out my commands by typing `*help` in <#758547575438704640>.')
+            message_end = ' Get your roles at <#759026724825595934> and <#793331191666704454>. You can also check out my commands by typing `*help` in <#758547575438704640>.'
+            message = random.choice(message_begin_list).format(mem_name=member.mention) + message_end
+            embed = Embed(description=message,title="WELCOME!")
+            embed.set_thumbnail(url='https://i.imgur.com/HeGEEbu.jpg')
+            await starden_genchannel.send(embed=embed)
 
     # @commands.Cog.listener()
     # async def on_member_remove(self, member):
