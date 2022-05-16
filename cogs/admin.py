@@ -146,14 +146,13 @@ class Admin(commands.Cog):
             ]
             # await starden_genchannel.send(random.choice(tarodancers))
             message_begin_list = [
-                'Welcome new ket {mem_name} to STARDENBURDENHARDENBART!',
-                'WHOOOO NEW MEMBER! Welcome {mem_name} to STARDENBURDENHARDENBART!',
-                'Thanks for joining STARDENBURDENHARDENBART, {mem_name}!'
+                'Welcome new ket {mem_name}!',
+                'WHOOOO NEW MEMBER! Welcome {mem_name}!',
+                'Thanks for joining, {mem_name}!'
             ]
             message_end = ' Get your roles at <#759026724825595934> and <#793331191666704454>. You can also check out my commands by typing `*help` in <#758547575438704640>.'
             message = random.choice(message_begin_list).format(mem_name=member.mention) + message_end
-            embed = Embed(description=message,title="WELCOME!")
-            embed.set_thumbnail(url='https://i.imgur.com/HeGEEbu.jpg')
+            embed = Embed(description=message,title="Welcome to STARDENBURDENHARDENBART!")
             await starden_genchannel.send(embed=embed)
 
     # @commands.Cog.listener()
